@@ -61,7 +61,7 @@ export const editPatientHandler = async (
       : undefined;
 
     if (editedPatient) {
-      res.status(201).send(editedPatient);
+      res.status(200).send(editedPatient);
     } else {
       res.status(404).send(`Patient not found`);
     }

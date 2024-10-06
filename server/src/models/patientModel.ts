@@ -12,7 +12,7 @@ const addressSchema = new Schema({
     required: true,
   },
   line1: { type: String, required: true, trim: true },
-  line2: { type: String },
+  line2: { type: String, default: "" },
   city: { type: String, required: true, trim: true },
   area: { type: String, required: true, trim: true },
   country: { type: String, required: true, trim: true },
@@ -30,7 +30,7 @@ const patientSchema = new Schema(
   {
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },
-    middleName: { type: String },
+    middleName: { type: String, default: "" },
     dateOfBirth: { type: Date, required: true },
     status: {
       type: String,
