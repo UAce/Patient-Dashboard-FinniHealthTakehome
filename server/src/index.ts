@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import { assertValue } from "./common/assert";
 import morgan from "morgan";
 import Logger from "./common/logger";
-import PatientRoutes from "./routes/patientRoutes";
+import PatientRouter from "./router/patientRouter";
 
 dotenv.config({
   path: [".env.local", ".env"],
@@ -34,7 +34,7 @@ app.get("/health", (_, res) => {
   res.send("Server is running!");
 });
 
-app.use("/api/patients", PatientRoutes);
+app.use("/api/patients", PatientRouter);
 
 /**
  * Connect to DB and start Server

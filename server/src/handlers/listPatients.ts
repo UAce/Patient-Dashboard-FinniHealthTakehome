@@ -37,6 +37,7 @@ export const listPatientsHandler = async (
 
     const patients = await PatientModel.find({
       ...searchFilter,
+      // TODO: check status is valid enum
       ...(query.status ? { status: query.status } : {}),
     });
     res.status(200).send(patients);

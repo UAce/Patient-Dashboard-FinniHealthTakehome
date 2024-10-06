@@ -76,21 +76,23 @@ patientSchema.pre("save", function (next) {
 patientSchema.pre("findOneAndUpdate", function (next) {
   const newValues = (this as any)._update;
 
-  const primaryAddresses = newValues.addresses.filter(
-    (address: any) => address.type === AddressType.Primary
-  );
-
-  if (primaryAddresses.length > 1) {
-    return next(new Error("Only one primary address is allowed."));
-  }
-
-  const secondaryAddresses = newValues.addresses.filter(
-    (address: any) => address.type === AddressType.Secondary
-  );
-  if (primaryAddresses.length === 0 && secondaryAddresses.length > 1) {
-    return next(
-      new Error("Cannot create secondary address without primary address.")
+  if (newValues.addresses) {
+    const primaryAddresses = newValues.addresses.filter(
+      (address: any) => address.type === AddressType.Primary
     );
+
+    if (primaryAddresses.length > 1) {
+      return next(new Error("Only one primary address is allowed."));
+    }
+
+    const secondaryAddresses = newValues.addresses.filter(
+      (address: any) => address.type === AddressType.Secondary
+    );
+    if (primaryAddresses.length === 0 && secondaryAddresses.length > 1) {
+      return next(
+        new Error("Cannot create secondary address without primary address.")
+      );
+    }
   }
 
   next();
