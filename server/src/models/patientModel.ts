@@ -61,7 +61,47 @@ patientSchema.pre("save", function (next) {
     return next(new Error("Only one primary address is allowed."));
   }
 
+  const secondaryAddresses = this.addresses.filter(
+    (address) => address.type === AddressType.Secondary
+  );
+  if (primaryAddresses.length === 0 && secondaryAddresses.length > 1) {
+    return next(
+      new Error("Cannot create secondary address without primary address.")
+    );
+  }
+
   next();
+});
+
+patientSchema.pre("findOneAndUpdate", function (next) {
+  const newValues = (this as any)._update;
+
+  const primaryAddresses = newValues.addresses.filter(
+    (address: any) => address.type === AddressType.Primary
+  );
+
+  if (primaryAddresses.length > 1) {
+    return next(new Error("Only one primary address is allowed."));
+  }
+
+  const secondaryAddresses = newValues.addresses.filter(
+    (address: any) => address.type === AddressType.Secondary
+  );
+  if (primaryAddresses.length === 0 && secondaryAddresses.length > 1) {
+    return next(
+      new Error("Cannot create secondary address without primary address.")
+    );
+  }
+
+  next();
+});
+
+// Filter out soft-deleted
+patientSchema.pre("find", function () {
+  this.where({ deletedAt: null });
+});
+patientSchema.pre("findOne", function () {
+  this.where({ deletedAt: null });
 });
 
 const PatientModel = model("Patient", patientSchema);

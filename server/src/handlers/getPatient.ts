@@ -13,10 +13,9 @@ export const getPatientHandler = async (
   logger.info(params, "Geting patient");
 
   try {
-    let patient =
-      params.id && Types.ObjectId.isValid(params.id)
-        ? await PatientModel.findById(params.id)
-        : undefined;
+    const patient = Types.ObjectId.isValid(params.id)
+      ? await PatientModel.findById(params.id)
+      : undefined;
 
     if (patient) {
       res.status(201).send(patient);
