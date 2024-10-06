@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-enum AddressType {
+export enum AddressType {
   Primary = "Primary",
   Secondary = "Secondary",
 }
@@ -11,39 +11,45 @@ const addressSchema = new Schema({
     enum: [AddressType.Primary, AddressType.Secondary],
     required: true,
   },
-  line1: { type: String, required: true },
+  line1: { type: String, required: true, trim: true },
   line2: { type: String },
-  city: { type: String, required: true },
-  area: { type: String, required: true },
-  country: { type: String, required: true },
-  postalCode: { type: String, required: true },
+  city: { type: String, required: true, trim: true },
+  area: { type: String, required: true, trim: true },
+  country: { type: String, required: true, trim: true },
+  postalCode: { type: String, required: true, trim: true },
 });
 
-enum InquiryStatus {
+export enum InquiryStatus {
   Inquiry = "Inquiry",
   Onboarding = "Onboarding",
   Active = "Active",
   Churned = "Churned",
 }
 
-const patientSchema = new Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  middleName: { type: String },
-  dateOfBirth: { type: Date, required: true },
-  status: {
-    type: String,
-    enum: [
-      InquiryStatus.Inquiry,
-      InquiryStatus.Onboarding,
-      InquiryStatus.Active,
-      InquiryStatus.Churned,
-    ],
-    required: true,
+const patientSchema = new Schema(
+  {
+    firstName: { type: String, required: true, trim: true },
+    lastName: { type: String, required: true, trim: true },
+    middleName: { type: String },
+    dateOfBirth: { type: Date, required: true },
+    status: {
+      type: String,
+      enum: [
+        InquiryStatus.Inquiry,
+        InquiryStatus.Onboarding,
+        InquiryStatus.Active,
+        InquiryStatus.Churned,
+      ],
+      required: true,
+    },
+    addresses: [addressSchema], // Array of addresses
+    metadata: { type: Map, of: String }, // Arbitrary fields
+    deletedAt: { type: Date, default: null },
   },
-  addresses: [addressSchema], // Array of addresses
-  metadata: { type: Map, of: String }, // Arbitrary fields
-});
+  {
+    timestamps: true,
+  }
+);
 
 // Ensure only one primary address per patient
 patientSchema.pre("save", function (next) {

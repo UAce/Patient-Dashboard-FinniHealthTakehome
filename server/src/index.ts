@@ -7,8 +7,11 @@ import mongoose from "mongoose";
 import { assertValue } from "./common/assert";
 import morgan from "morgan";
 import Logger from "./common/logger";
+import PatientRoutes from "./routes/patientRoutes";
 
-dotenv.config();
+dotenv.config({
+  path: [".env.local", ".env"],
+});
 
 const logger = Logger.getInstance({ name: "Index" });
 const host: string = process.env.HOST || "localhost";
@@ -30,6 +33,8 @@ app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 app.get("/health", (_, res) => {
   res.send("Server is running!");
 });
+
+app.use("/api/patients", PatientRoutes);
 
 /**
  * Connect to DB and start Server
