@@ -25,10 +25,14 @@ import { BaseSyntheticEvent, useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { pick } from "lodash";
 import { AppColor } from "../../Common/constants";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../Common/store";
+import { openToast } from "../../Common/toastSlice";
 
 export const PatientEditPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const [editPatientMutation] = useEditPatientMutation();
 
   const { isLoading, data } = useGetPatientByIdQuery(id ? id : skipToken);
@@ -134,9 +138,21 @@ export const PatientEditPage = () => {
                   id: formData.id,
                   ...formData,
                 }).unwrap();
+                dispatch(
+                  openToast({
+                    severity: "success",
+                    title: "Patient profile saved!",
+                  })
+                );
                 navigate(`/patients/${formData.id}`);
               } catch (error) {
                 console.error(error);
+                dispatch(
+                  openToast({
+                    severity: "error",
+                    title: "Error saving patient profile",
+                  })
+                );
               }
             }}
           >

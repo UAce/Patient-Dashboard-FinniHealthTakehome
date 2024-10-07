@@ -5,6 +5,7 @@ import { SideMenu } from "./Components/SideMenu";
 import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./Components/AppRoutes";
 import { AppColor } from "./Common/constants";
+import { Toasts } from "./Components/Toast";
 
 type LayoutStyles = {
   root: SxProps<Theme>;
@@ -39,6 +40,7 @@ function App() {
         <Stack direction="row" sx={sx.layout}>
           <SideMenu />
           <Stack component="main" sx={sx.content}>
+            <Toasts />
             <AppRoutes />
           </Stack>
         </Stack>
