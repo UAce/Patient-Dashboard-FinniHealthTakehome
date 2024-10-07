@@ -57,6 +57,7 @@ export const listPatientsHandler = async (
         $match: {
           ...searchFilter,
           ...statusFilter,
+          deletedAt: null,
         },
       },
       {

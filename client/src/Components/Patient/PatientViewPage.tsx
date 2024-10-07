@@ -8,21 +8,55 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useGetPatientByIdQuery } from "../../Common/apiSlice";
+import {
+  useGetPatientByIdQuery,
+  useRemovePatientMutation,
+} from "../../Common/apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { skipToken } from "@reduxjs/toolkit/query";
-import { ArrowBack, Edit } from "@mui/icons-material";
+import { ArrowBack, Delete, Edit } from "@mui/icons-material";
 import { KeyValue } from "../KeyValue";
 import { PatientViewSection } from "./PatientViewSection";
 import { PatientStatusChip } from "./PatientStatusChip";
 import dayjs from "dayjs";
 import { camelCaseToWords } from "../../utils";
+import { ConfirmDialog } from "../ConfirmDialog";
+import { useState } from "react";
+import { openToast } from "../../Common/toastSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../Common/store";
 
 export const PatientViewPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const [openDialog, setOpenDialog] = useState(false);
 
   const { isLoading, data } = useGetPatientByIdQuery(id ? id : skipToken);
+
+  const [removePatientMutation] = useRemovePatientMutation();
+  const handleDeletePatient = async (id: string) => {
+    try {
+      await removePatientMutation(id).unwrap();
+      dispatch(
+        openToast({
+          severity: "success",
+          title: "Patient profile deleted!",
+        })
+      );
+      navigate(`/patients`);
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        openToast({
+          severity: "error",
+          title: "Error deleting patient profile",
+        })
+      );
+    } finally {
+      setOpenDialog(false);
+    }
+  };
 
   return (
     <Paper sx={{ margin: "2rem 1rem" }}>
@@ -62,6 +96,7 @@ export const PatientViewPage = () => {
                 Edit
               </Button>
             </Stack>
+
             <PatientViewSection title="Personal Information">
               <KeyValue value={data.firstName} name="First Name" />
               <KeyValue value={data.middleName || "-"} name="Middle Name" />
@@ -71,6 +106,7 @@ export const PatientViewPage = () => {
                 name="Date of Birth"
               />
             </PatientViewSection>
+
             {data.addresses.map((address, index) => {
               return (
                 <PatientViewSection
@@ -88,6 +124,7 @@ export const PatientViewPage = () => {
                 </PatientViewSection>
               );
             })}
+
             {data.metadata.length > 0 ? (
               <PatientViewSection title="Additional Information">
                 {data.metadata.map(({ key, value }, index) => {
@@ -101,6 +138,23 @@ export const PatientViewPage = () => {
                 })}
               </PatientViewSection>
             ) : null}
+
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => setOpenDialog(true)}
+              startIcon={<Delete />}
+            >
+              Delete
+            </Button>
+            <ConfirmDialog
+              confirmText="Delete"
+              message="This will irreversibly delete the patient profile."
+              title="Delete Patient Profile"
+              onAccept={() => handleDeletePatient(data.id)}
+              onCancel={() => setOpenDialog(false)}
+              open={openDialog}
+            />
           </Box>
         </>
       ) : null}

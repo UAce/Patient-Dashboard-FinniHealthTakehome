@@ -53,7 +53,6 @@ export const PatientEditPage = () => {
 
   const handleDateOfBirthChange = (date: Dayjs | null) => {
     if (date) {
-      console.log(formData);
       setFormData({
         ...formData,
         dateOfBirth: date.toISOString(),
@@ -86,8 +85,6 @@ export const PatientEditPage = () => {
         country: "",
         postalCode: "",
       });
-
-      console.log(newAddresses);
 
       setFormData({
         ...formData,
