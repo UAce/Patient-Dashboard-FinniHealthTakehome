@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Logger from "../common/logger";
 import PatientModel, {
   AddressType,
-  InquiryStatus,
+  IntakeStatus,
 } from "../models/patientModel";
 
 const logger = Logger.getInstance({ name: "ListPatients" });
@@ -52,19 +52,19 @@ export const listPatientsHandler = async (
             $switch: {
               branches: [
                 {
-                  case: { $eq: ["$status", InquiryStatus.Inquiry] },
+                  case: { $eq: ["$status", IntakeStatus.Inquiry] },
                   then: 1,
                 },
                 {
-                  case: { $eq: ["$status", InquiryStatus.Onboarding] },
+                  case: { $eq: ["$status", IntakeStatus.Onboarding] },
                   then: 2,
                 },
                 {
-                  case: { $eq: ["$status", InquiryStatus.Active] },
+                  case: { $eq: ["$status", IntakeStatus.Active] },
                   then: 3,
                 },
                 {
-                  case: { $eq: ["$status", InquiryStatus.Churned] },
+                  case: { $eq: ["$status", IntakeStatus.Churned] },
                   then: 4,
                 },
               ],

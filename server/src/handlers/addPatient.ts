@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Joi from "joi";
 import Logger from "../common/logger";
 import PatientModel, {
-  InquiryStatus,
+  IntakeStatus,
   AddressType,
 } from "../models/patientModel";
 import { assertSchema } from "../common/assert";
@@ -15,7 +15,7 @@ const AddPatientRequestSchema = Joi.object({
   middleName: Joi.string().optional().allow(null, ""),
   dateOfBirth: Joi.date().required(),
   status: Joi.string()
-    .valid(...Object.values(InquiryStatus))
+    .valid(...Object.values(IntakeStatus))
     .required(),
   addresses: Joi.array()
     .items(

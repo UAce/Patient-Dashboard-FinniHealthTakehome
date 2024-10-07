@@ -24,7 +24,7 @@ const metadataSchema = new Schema({
   value: { type: String, required: true, trim: true },
 });
 
-export enum InquiryStatus {
+export enum IntakeStatus {
   Inquiry = "Inquiry",
   Onboarding = "Onboarding",
   Active = "Active",
@@ -40,10 +40,10 @@ const patientSchema = new Schema(
     status: {
       type: String,
       enum: [
-        InquiryStatus.Inquiry,
-        InquiryStatus.Onboarding,
-        InquiryStatus.Active,
-        InquiryStatus.Churned,
+        IntakeStatus.Inquiry,
+        IntakeStatus.Onboarding,
+        IntakeStatus.Active,
+        IntakeStatus.Churned,
       ],
       required: true,
     },

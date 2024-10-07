@@ -1,7 +1,7 @@
 import { sample } from "lodash";
 import PatientModel, {
   AddressType,
-  InquiryStatus,
+  IntakeStatus,
 } from "../models/patientModel";
 import { faker } from "@faker-js/faker";
 
@@ -17,7 +17,7 @@ const generatePatient = () => ({
   middleName: Math.random() > 0.5 ? faker.person.middleName() : "",
   lastName: faker.person.lastName(),
   dateOfBirth: new Date(),
-  status: sample(Object.values(InquiryStatus)),
+  status: sample(Object.values(IntakeStatus)),
   addresses: [
     {
       type: AddressType.Primary,

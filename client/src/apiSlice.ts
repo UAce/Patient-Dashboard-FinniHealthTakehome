@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export enum InquiryStatus {
+export enum IntakeStatus {
   Inquiry = "Inquiry",
   Onboarding = "Onboarding",
   Active = "Active",
@@ -18,7 +18,7 @@ export interface Patient {
   middleName?: string;
   lastName: string;
   dateOfBirth: string; // ISO date string
-  status: InquiryStatus;
+  status: IntakeStatus;
   addresses: Array<{
     type: AddressType;
     line1: string;
@@ -58,7 +58,7 @@ export const apiSlice = createApi({
     }),
     listPatients: builder.query<
       Patient[],
-      { search?: string; status?: InquiryStatus } | undefined
+      { search?: string; status?: IntakeStatus } | undefined
     >({
       query: (filters = {}) => {
         const params = new URLSearchParams(filters);

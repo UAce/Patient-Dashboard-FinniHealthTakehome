@@ -1,12 +1,12 @@
 import { ChipOwnProps, Chip } from "@mui/material";
-import { InquiryStatus } from "../../apiSlice";
+import { IntakeStatus } from "../../apiSlice";
 
-export const PatientStatusChip = ({ status }: { status: InquiryStatus }) => {
+export const PatientStatusChip = ({ status }: { status: IntakeStatus }) => {
   const statusColor = {
-    [InquiryStatus.Churned]: "error" as ChipOwnProps["color"],
-    [InquiryStatus.Onboarding]: "info" as ChipOwnProps["color"],
-    [InquiryStatus.Active]: "success" as ChipOwnProps["color"],
-    [InquiryStatus.Inquiry]: "warning" as ChipOwnProps["color"],
+    [IntakeStatus.Churned]: "error" as ChipOwnProps["color"],
+    [IntakeStatus.Onboarding]: "info" as ChipOwnProps["color"],
+    [IntakeStatus.Active]: "success" as ChipOwnProps["color"],
+    [IntakeStatus.Inquiry]: "warning" as ChipOwnProps["color"],
   }[status];
 
   return <Chip color={statusColor} label={status} />;

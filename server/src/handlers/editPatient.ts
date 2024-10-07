@@ -3,7 +3,7 @@ import Joi from "joi";
 import Logger from "../common/logger";
 import PatientModel, {
   AddressType,
-  InquiryStatus,
+  IntakeStatus,
 } from "../models/patientModel";
 import { assertSchema } from "../common/assert";
 import { Types } from "mongoose";
@@ -16,7 +16,7 @@ const EditPatientRequestSchema = Joi.object({
   middleName: Joi.string().optional().allow(null, ""),
   dateOfBirth: Joi.date().optional(),
   status: Joi.string()
-    .valid(...Object.values(InquiryStatus))
+    .valid(...Object.values(IntakeStatus))
     .optional(),
   addresses: Joi.array()
     .items(
