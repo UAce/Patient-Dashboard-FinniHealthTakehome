@@ -58,10 +58,18 @@ export const apiSlice = createApi({
     }),
     listPatients: builder.query<
       Patient[],
-      { search?: string; status?: IntakeStatus } | undefined
+      { search?: string; status?: IntakeStatus[] } | undefined
     >({
-      query: (filters = {}) => {
-        const params = new URLSearchParams(filters);
+      query: ({ search, status } = {}) => {
+        let params = new URLSearchParams();
+        if (search) {
+          params.append("search", search);
+        }
+        if (status && status?.length > 0) {
+          status.forEach((_status) => {
+            params.append("status", _status);
+          });
+        }
         return `patients?${params.toString()}`;
       },
       providesTags: ["Patient"],

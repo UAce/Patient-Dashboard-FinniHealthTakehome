@@ -9,12 +9,28 @@ import { Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { PatientStatusChip } from "./PatientStatusChip";
 import dayjs from "dayjs";
+import { PatientListToolbar } from "./PatientListToolbar";
+import { useMemo } from "react";
+import { usePatientListContext } from "./PatientListContext";
 
 export const PatientListPage = () => {
   const navigate = useNavigate();
-  // TODO: Pass search and status filters
-  const { isLoading, data } = useListPatientsQuery(undefined, {});
-  // const [deletePatient] = useRemovePatientMutation();
+  const {
+    search,
+    onSearch,
+    selectedStatuses,
+    onSelectedStatusesChange,
+    onClearFilters,
+  } = usePatientListContext();
+
+  const filters = useMemo(
+    () => ({
+      search,
+      status: selectedStatuses,
+    }),
+    [search, selectedStatuses]
+  );
+  const { isLoading, data } = useListPatientsQuery(filters);
 
   const columns: GridColDef<Patient>[] = [
     { field: "firstName", headerName: "First Name", flex: 1 },
@@ -58,18 +74,6 @@ export const PatientListPage = () => {
             <IconButton onClick={() => navigate(`/patients/${id}`)}>
               <Visibility />
             </IconButton>
-            {/* <IconButton
-              onClick={async () => {
-                try {
-                  // TODO: Add confirmation dialog + success toast
-                  await deletePatient(`${id}`).unwrap();
-                } catch (error) {
-                  console.error(error);
-                }
-              }}
-            >
-              <Delete />
-            </IconButton> */}
           </Stack>
         );
       },
@@ -83,29 +87,38 @@ export const PatientListPage = () => {
         <Skeleton />
       ) : (
         // TODO: show empty list if no patients
-        <DataGrid
-          columns={columns}
-          rows={data}
-          disableColumnFilter // Disable column filtering
-          disableColumnSelector
-          sx={{
-            "& .MuiDataGrid-container--top [role=row]": {
-              backgroundColor: "#ece3de",
-            },
-            "& .MuiDataGrid-columnHeaderTitle": {
-              fontWeight: "bold",
-            },
-            // Remove the outlined selection
-            "& .MuiDataGrid-cell:focus": {
-              outline: "none",
-              boxShadow: "none",
-            },
-            "& .MuiDataGrid-columnHeader:focus": {
-              outline: "none",
-              boxShadow: "none",
-            },
-          }}
-        ></DataGrid>
+        <Paper>
+          <PatientListToolbar
+            onSearch={onSearch}
+            selectedStatuses={selectedStatuses}
+            onSelectedStatusesChange={onSelectedStatusesChange}
+            onClearStatuses={onClearFilters}
+          />
+          <DataGrid
+            columns={columns}
+            rows={data}
+            disableColumnFilter // Disable column filtering
+            disableColumnSelector
+            sx={{
+              "& .MuiDataGrid-container--top [role=row]": {
+                backgroundColor: "#ece3de",
+              },
+              "& .MuiDataGrid-columnHeaderTitle": {
+                fontWeight: "bold",
+              },
+              // Remove the outlined selection
+              "& .MuiDataGrid-cell:focus": {
+                outline: "none",
+                boxShadow: "none",
+              },
+              "& .MuiDataGrid-columnHeader:focus": {
+                outline: "none",
+                boxShadow: "none",
+              },
+            }}
+            // TODO: show no records
+          ></DataGrid>
+        </Paper>
       )}
     </Paper>
   );

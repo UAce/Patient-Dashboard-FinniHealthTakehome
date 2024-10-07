@@ -4,6 +4,7 @@ import PatientModel, {
   AddressType,
   IntakeStatus,
 } from "../models/patientModel";
+import { isArray } from "lodash";
 
 const logger = Logger.getInstance({ name: "ListPatients" });
 
@@ -38,11 +39,24 @@ export const listPatientsHandler = async (
       };
     }
 
+    let statusFilter = {};
+    if (query.status) {
+      if (isArray(query.status)) {
+        statusFilter = {
+          status: { $in: query.status },
+        };
+      } else {
+        statusFilter = {
+          status: query.status,
+        };
+      }
+    }
+
     const patients = await PatientModel.aggregate([
       {
         $match: {
           ...searchFilter,
-          ...(query.status ? { status: query.status } : {}),
+          ...statusFilter,
         },
       },
       {
