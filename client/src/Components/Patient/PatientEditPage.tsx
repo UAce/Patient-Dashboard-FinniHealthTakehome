@@ -1,11 +1,4 @@
-import {
-  Divider,
-  IconButton,
-  Paper,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Divider, IconButton, Stack, Typography } from "@mui/material";
 import {
   updatableFields,
   useEditPatientMutation,
@@ -21,6 +14,7 @@ import { AppDispatch } from "../../Common/store";
 import { openToast } from "../../Common/toastSlice";
 import { usePatientFormContext } from "./Form/PatientFormContext";
 import { PatientForm } from "./Form/PatientForm";
+import { Page } from "../Page";
 
 export const PatientEditPage = () => {
   const { id } = useParams();
@@ -41,11 +35,8 @@ export const PatientEditPage = () => {
   }, [data, setPatientData]);
 
   return (
-    <Paper sx={{ margin: "2rem 1rem" }}>
-      {isLoading ? (
-        // TODO: make a better skeleton or a loading circle bar
-        <Skeleton />
-      ) : patientData ? (
+    <Page isLoading={isLoading}>
+      {patientData ? (
         <>
           <Stack
             flexDirection="row"
@@ -87,6 +78,6 @@ export const PatientEditPage = () => {
           />
         </>
       ) : null}
-    </Paper>
+    </Page>
   );
 };

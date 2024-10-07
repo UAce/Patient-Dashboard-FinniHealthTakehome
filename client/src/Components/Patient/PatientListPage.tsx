@@ -1,4 +1,4 @@
-import { IconButton, Paper, Skeleton, Stack } from "@mui/material";
+import { IconButton, Paper, Stack } from "@mui/material";
 import {
   AddressType,
   Patient,
@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import { PatientListToolbar } from "./PatientListToolbar";
 import { useMemo } from "react";
 import { usePatientListContext } from "./PatientListContext";
+import { Page } from "../Page";
 
 export const PatientListPage = () => {
   const navigate = useNavigate();
@@ -81,45 +82,39 @@ export const PatientListPage = () => {
   ];
 
   return (
-    <Paper sx={{ margin: "2rem 1rem" }}>
-      {isLoading ? (
-        // TODO: make a better skeleton or a loading circle bar
-        <Skeleton />
-      ) : (
-        // TODO: show empty list if no patients
-        <Paper>
-          <PatientListToolbar
-            onSearch={onSearch}
-            selectedStatuses={selectedStatuses}
-            onSelectedStatusesChange={onSelectedStatusesChange}
-            onClearStatuses={onClearFilters}
-          />
-          <DataGrid
-            columns={columns}
-            rows={data}
-            disableColumnFilter // Disable column filtering
-            disableColumnSelector
-            sx={{
-              "& .MuiDataGrid-container--top [role=row]": {
-                backgroundColor: "#ece3de",
-              },
-              "& .MuiDataGrid-columnHeaderTitle": {
-                fontWeight: "bold",
-              },
-              // Remove the outlined selection
-              "& .MuiDataGrid-cell:focus": {
-                outline: "none",
-                boxShadow: "none",
-              },
-              "& .MuiDataGrid-columnHeader:focus": {
-                outline: "none",
-                boxShadow: "none",
-              },
-            }}
-            // TODO: show no records
-          ></DataGrid>
-        </Paper>
-      )}
-    </Paper>
+    <Page isLoading={isLoading}>
+      <PatientListToolbar
+        onSearch={onSearch}
+        selectedStatuses={selectedStatuses}
+        onSelectedStatusesChange={onSelectedStatusesChange}
+        onClearStatuses={onClearFilters}
+      />
+      <Paper>
+        <DataGrid
+          columns={columns}
+          rows={data}
+          disableColumnFilter // Disable column filtering
+          disableColumnSelector
+          sx={{
+            "& .MuiDataGrid-container--top [role=row]": {
+              backgroundColor: "#ece3de",
+            },
+            "& .MuiDataGrid-columnHeaderTitle": {
+              fontWeight: "bold",
+            },
+            // Remove the outlined selection
+            "& .MuiDataGrid-cell:focus": {
+              outline: "none",
+              boxShadow: "none",
+            },
+            "& .MuiDataGrid-columnHeader:focus": {
+              outline: "none",
+              boxShadow: "none",
+            },
+          }}
+          // TODO: show no records
+        ></DataGrid>
+      </Paper>
+    </Page>
   );
 };

@@ -3,8 +3,6 @@ import {
   Button,
   Divider,
   IconButton,
-  Paper,
-  Skeleton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -25,6 +23,7 @@ import { useState } from "react";
 import { openToast } from "../../Common/toastSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../Common/store";
+import { Page } from "../Page";
 
 export const PatientViewPage = () => {
   const { id } = useParams();
@@ -59,11 +58,8 @@ export const PatientViewPage = () => {
   };
 
   return (
-    <Paper sx={{ margin: "2rem 1rem" }}>
-      {isLoading ? (
-        // TODO: make a better skeleton or a loading circle bar
-        <Skeleton />
-      ) : data ? (
+    <Page isLoading={isLoading}>
+      {data ? (
         <>
           <Stack
             flexDirection="row"
@@ -159,6 +155,6 @@ export const PatientViewPage = () => {
           </Box>
         </>
       ) : null}
-    </Paper>
+    </Page>
   );
 };
