@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PatientListPage } from "./Patient/PatientListPage";
-import { Typography } from "@mui/material";
 import { PatientViewPage } from "./Patient/PatientViewPage";
 import { PatientEditPage } from "./Patient/PatientEditPage";
 import { PatientListContextProvider } from "./Patient/PatientListContext";
 import { PatientFormContextProvider } from "./Patient/Form/PatientFormContext";
+import { PatientAddPage } from "./Patient/PatientAddPage";
 
 export const AppRoutes = () => (
   <Routes>
@@ -22,7 +22,7 @@ export const AppRoutes = () => (
       path="patients/add"
       element={
         <PatientFormContextProvider>
-          <Typography>Add patient</Typography>
+          <PatientAddPage />
         </PatientFormContextProvider>
       }
     />

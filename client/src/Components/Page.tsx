@@ -2,10 +2,10 @@ import { Divider, Paper, Skeleton, Stack } from "@mui/material";
 import { PropsWithChildren } from "react";
 
 interface PageProps {
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 export const Page = ({
-  isLoading,
+  isLoading = false,
   children,
 }: PageProps & PropsWithChildren) => {
   return (

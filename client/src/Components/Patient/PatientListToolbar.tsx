@@ -1,4 +1,4 @@
-import { Clear, KeyboardArrowDown, Search } from "@mui/icons-material";
+import { Add, Clear, KeyboardArrowDown, Search } from "@mui/icons-material";
 import {
   Button,
   Checkbox,
@@ -17,6 +17,8 @@ import {
 import { useState, MouseEvent } from "react";
 import { IntakeStatus } from "../../Common/apiSlice";
 import { PatientStatusChip } from "./PatientStatusChip";
+import { AppColor } from "../../Common/constants";
+import { useNavigate } from "react-router-dom";
 
 interface PatientListToolbarProps {
   onSearch: (searchTerm: string) => void;
@@ -31,6 +33,8 @@ export const PatientListToolbar = ({
   onSelectedStatusesChange,
   onClearStatuses,
 }: PatientListToolbarProps) => {
+  const navigate = useNavigate();
+
   // search
   const [search, setSearch] = useState("");
   const handleSearch = (_search: string) => {
@@ -58,113 +62,136 @@ export const PatientListToolbar = ({
   };
 
   return (
-    <Stack flexDirection="row" mb={1} alignItems={"center"}>
-      <FormControl
-        sx={{
-          m: 1,
-          width: "600px",
-        }}
-        variant="outlined"
-      >
-        <InputLabel htmlFor="patient-list-search">
-          Search name or city
-        </InputLabel>
-        <OutlinedInput
-          id="patient-list-search"
-          label="Search name or city"
-          endAdornment={
-            search ? (
-              <InputAdornment position="end">
-                <IconButton onClick={() => handleSearch("")} size="small">
-                  <Clear />
-                </IconButton>
-              </InputAdornment>
-            ) : (
-              <InputAdornment position="end">
-                <Search />
-              </InputAdornment>
-            )
-          }
-          inputProps={{
-            "aria-label": "search",
+    <Stack
+      flexDirection="row"
+      justifyContent="space-between"
+      height="56px"
+      mb={2}
+      mr={2}
+    >
+      <Stack flexDirection="row" alignItems={"center"}>
+        <FormControl
+          sx={{
+            m: 1,
+            width: "600px",
           }}
-          value={search}
-          onChange={(e) => handleSearch(e.target.value)}
-        />
-      </FormControl>
-      <ClickAwayListener onClickAway={handleClose}>
-        <>
-          <Button
-            id="button-sort-by-selector"
-            aria-controls={isMenuOpen ? "menu-sort-by-selector" : undefined}
-            aria-haspopup="true"
-            aria-expanded={isMenuOpen ? "true" : undefined}
-            variant="outlined"
-            onClick={(event: MouseEvent<HTMLElement>) =>
-              setAnchorEl(event.currentTarget)
+          variant="outlined"
+        >
+          <InputLabel htmlFor="patient-list-search">
+            Search name or city
+          </InputLabel>
+          <OutlinedInput
+            id="patient-list-search"
+            label="Search name or city"
+            endAdornment={
+              search ? (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => handleSearch("")} size="small">
+                    <Clear />
+                  </IconButton>
+                </InputAdornment>
+              ) : (
+                <InputAdornment position="end">
+                  <Search />
+                </InputAdornment>
+              )
             }
-            endIcon={<KeyboardArrowDown />}
-            sx={{
-              borderRadius: "10px",
-              padding: "0.5rem 1rem",
-              height: "56px",
+            inputProps={{
+              "aria-label": "search",
             }}
-          >
-            Statuses
-          </Button>
-          <Menu
-            id="menu-sort-by-selector"
-            MenuListProps={{
-              "aria-labelledby": "button-sort-by-selector",
-              sx: {
-                minWidth: "200px",
-              },
-            }}
-            anchorEl={anchorEl}
-            open={isMenuOpen}
-            onClose={handleClose}
-            elevation={2}
-            sx={{ maxHeight: "80vh" }}
-          >
-            {options.map((status) => (
-              <MenuItem
-                key={status}
-                sx={{ marginX: 0.5 }}
-                onClick={(e) => {
-                  handleClick(status);
-                  e.preventDefault(); // Avoid triggering onClick twice which is caused by checkbox event handlers
-                }}
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox checked={isSelected(status)} name={status} />
-                  }
-                  label={status}
-                />
-              </MenuItem>
-            ))}
-          </Menu>
-        </>
-      </ClickAwayListener>
-      {selectedStatuses.length > 0 ? (
-        <Stack flexDirection="row" columnGap={1} ml={2}>
-          {selectedStatuses.map((status) => (
-            <PatientStatusChip status={status} key={status} />
-          ))}
-          <Chip
-            clickable
-            color="default"
-            label={"Clear Statuses"}
-            onClick={onClearStatuses}
-            size="medium"
-            variant="outlined"
-            icon={<Clear />}
-            sx={{
-              ml: 1,
-            }}
+            value={search}
+            onChange={(e) => handleSearch(e.target.value)}
           />
-        </Stack>
-      ) : null}
+        </FormControl>
+        <ClickAwayListener onClickAway={handleClose}>
+          <>
+            <Button
+              id="button-sort-by-selector"
+              aria-controls={isMenuOpen ? "menu-sort-by-selector" : undefined}
+              aria-haspopup="true"
+              aria-expanded={isMenuOpen ? "true" : undefined}
+              variant="outlined"
+              onClick={(event: MouseEvent<HTMLElement>) =>
+                setAnchorEl(event.currentTarget)
+              }
+              endIcon={<KeyboardArrowDown />}
+              sx={{
+                borderRadius: "10px",
+                padding: "0.5rem 1rem",
+                height: "100%",
+              }}
+            >
+              Statuses
+            </Button>
+            <Menu
+              id="menu-sort-by-selector"
+              MenuListProps={{
+                "aria-labelledby": "button-sort-by-selector",
+                sx: {
+                  minWidth: "200px",
+                },
+              }}
+              anchorEl={anchorEl}
+              open={isMenuOpen}
+              onClose={handleClose}
+              elevation={2}
+              sx={{ maxHeight: "80vh" }}
+            >
+              {options.map((status) => (
+                <MenuItem
+                  key={status}
+                  sx={{ marginX: 0.5 }}
+                  onClick={(e) => {
+                    handleClick(status);
+                    e.preventDefault(); // Avoid triggering onClick twice which is caused by checkbox event handlers
+                  }}
+                >
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={isSelected(status)} name={status} />
+                    }
+                    label={status}
+                  />
+                </MenuItem>
+              ))}
+            </Menu>
+          </>
+        </ClickAwayListener>
+
+        {selectedStatuses.length > 0 ? (
+          <Stack flexDirection="row" columnGap={1} ml={2}>
+            {selectedStatuses.map((status) => (
+              <PatientStatusChip status={status} key={status} />
+            ))}
+            <Chip
+              clickable
+              color="default"
+              label={"Clear Statuses"}
+              onClick={onClearStatuses}
+              size="medium"
+              variant="outlined"
+              icon={<Clear />}
+              sx={{
+                ml: 1,
+              }}
+            />
+          </Stack>
+        ) : null}
+      </Stack>
+
+      <Button
+        variant="contained"
+        startIcon={<Add fontSize="large" />}
+        sx={{
+          width: "160px",
+          height: "100%",
+          color: AppColor.Secondary,
+          fontWeight: "bold",
+        }}
+        onClick={() => navigate("/patients/add")}
+      >
+        Add Patient
+      </Button>
     </Stack>
   );
 };

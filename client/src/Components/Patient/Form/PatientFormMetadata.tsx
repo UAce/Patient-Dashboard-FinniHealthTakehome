@@ -7,19 +7,18 @@ export const PatientFormMetadata = () => {
   const { patientData, setPatientData } = usePatientFormContext();
 
   const addAdditionalInfo = () => {
-    if (patientData?.metadata) {
-      setPatientData({
-        ...patientData,
-        metadata: [
-          ...patientData.metadata,
-          {
-            // empty metadata
-            key: "",
-            value: "",
-          },
-        ],
-      });
-    }
+    const oldMetadata = patientData?.metadata || [];
+    setPatientData({
+      ...patientData,
+      metadata: [
+        ...oldMetadata,
+        {
+          // empty metadata
+          key: "",
+          value: "",
+        },
+      ],
+    });
   };
 
   const removeAdditionalInfo = (index: number) => {
@@ -43,9 +42,9 @@ export const PatientFormMetadata = () => {
     setPatientData({ ...patientData, metadata: newMetadata });
   };
 
-  return patientData?.metadata ? (
+  return (
     <Stack>
-      {patientData.metadata.length > 0 ? (
+      {patientData?.metadata && patientData.metadata.length > 0 ? (
         <PatientFormSection title="Additional Information">
           {patientData.metadata.map(({ key, value }, index) => {
             return (
@@ -83,5 +82,5 @@ export const PatientFormMetadata = () => {
         Add Additional Information
       </Button>
     </Stack>
-  ) : null;
+  );
 };

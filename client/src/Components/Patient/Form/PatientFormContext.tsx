@@ -6,9 +6,12 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Patient } from "../../../Common/apiSlice";
+import { Patient, useGetPatientByIdQuery } from "../../../Common/apiSlice";
+import { useParams } from "react-router-dom";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 export type PatientFormContextValue = {
+  isLoading: boolean;
   patientData: Partial<Patient> | null;
   setPatientData: Dispatch<React.SetStateAction<Partial<Patient> | null>>;
 };
@@ -28,14 +31,19 @@ export const usePatientFormContext = () => {
 };
 
 export const PatientFormContextProvider = ({ children }: PropsWithChildren) => {
-  const [patientData, setPatientData] = useState<Partial<Patient> | null>(null);
+  const { id } = useParams();
+  const { isLoading, data } = useGetPatientByIdQuery(id ? id : skipToken);
+  const [patientData, setPatientData] = useState<Partial<Patient> | null>(
+    data || null
+  );
 
   const value = useMemo(
     () => ({
+      isLoading,
       patientData,
       setPatientData,
     }),
-    [patientData, setPatientData]
+    [isLoading, patientData, setPatientData]
   );
 
   return (

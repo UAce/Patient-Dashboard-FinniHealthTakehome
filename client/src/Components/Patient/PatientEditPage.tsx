@@ -1,14 +1,8 @@
 import { Divider, IconButton, Stack, Typography } from "@mui/material";
-import {
-  updatableFields,
-  useEditPatientMutation,
-  useGetPatientByIdQuery,
-} from "../../Common/apiSlice";
-import { useNavigate, useParams } from "react-router-dom";
-import { skipToken } from "@reduxjs/toolkit/query";
+import { useEditPatientMutation } from "../../Common/apiSlice";
+import { useNavigate } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
-import { FormEvent, useEffect } from "react";
-import { pick } from "lodash";
+import { FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../Common/store";
 import { openToast } from "../../Common/toastSlice";
@@ -17,22 +11,11 @@ import { PatientForm } from "./Form/PatientForm";
 import { Page } from "../Page";
 
 export const PatientEditPage = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { patientData, setPatientData } = usePatientFormContext();
+  const { isLoading, patientData } = usePatientFormContext();
 
   const [editPatientMutation] = useEditPatientMutation();
-  const { isLoading, data } = useGetPatientByIdQuery(id ? id : skipToken);
-
-  useEffect(() => {
-    if (data) {
-      setPatientData({
-        id: data.id,
-        ...pick(data, updatableFields),
-      });
-    }
-  }, [data, setPatientData]);
 
   return (
     <Page isLoading={isLoading}>

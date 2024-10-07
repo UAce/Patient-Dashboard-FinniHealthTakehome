@@ -124,7 +124,6 @@ export const PatientViewPage = () => {
             {data.metadata.length > 0 ? (
               <PatientViewSection title="Additional Information">
                 {data.metadata.map(({ key, value }, index) => {
-                  console.log({ key, value });
                   return (
                     <KeyValue
                       key={`metadata-${index}`}

@@ -5,6 +5,7 @@ import { PatientFormAddresses } from "./PatientFormAddresses";
 import { PatientFormMetadata } from "./PatientFormMetadata";
 import { usePatientFormContext } from "./PatientFormContext";
 import { AppColor } from "../../../Common/constants";
+import { PatientFormStatus } from "./PatientFormStatus";
 
 interface PatientFormProps {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -35,6 +36,7 @@ export const PatientForm = ({ onSubmit, action }: PatientFormProps) => {
           width: "500px",
         }}
       >
+        <PatientFormStatus />
         <PatientFormPersonalInformation />
         <PatientFormAddresses />
         <PatientFormMetadata />

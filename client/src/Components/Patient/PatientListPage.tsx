@@ -1,4 +1,4 @@
-import { IconButton, Paper, Stack } from "@mui/material";
+import { IconButton, Paper, Stack, Typography } from "@mui/material";
 import {
   AddressType,
   Patient,
@@ -83,12 +83,19 @@ export const PatientListPage = () => {
 
   return (
     <Page isLoading={isLoading}>
-      <PatientListToolbar
-        onSearch={onSearch}
-        selectedStatuses={selectedStatuses}
-        onSelectedStatusesChange={onSelectedStatusesChange}
-        onClearStatuses={onClearFilters}
-      />
+      <Stack>
+        <Typography variant="h5" sx={{ m: "1rem 0.5rem" }}>
+          Patient List
+        </Typography>
+
+        <PatientListToolbar
+          onSearch={onSearch}
+          selectedStatuses={selectedStatuses}
+          onSelectedStatusesChange={onSelectedStatusesChange}
+          onClearStatuses={onClearFilters}
+        />
+      </Stack>
+
       <Paper>
         <DataGrid
           columns={columns}
