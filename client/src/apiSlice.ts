@@ -31,10 +31,7 @@ export interface Patient {
       postalCode: string;
     }
   ];
-  metadata: {
-    website: string;
-    newField: string;
-  };
+  metadata: Record<string, string>;
   deletedAt: null;
   createdAt: string;
   updatedAt: string;

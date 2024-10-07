@@ -4,6 +4,7 @@ import { TopAppBar } from "./Components/TopAppBar";
 import { SideMenu } from "./Components/SideMenu";
 import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./Components/AppRoutes";
+import { AppColor } from "./constants";
 
 type LayoutStyles = {
   root: SxProps<Theme>;
@@ -13,6 +14,7 @@ type LayoutStyles = {
 
 const sx: LayoutStyles = {
   root: {
+    backgroundColor: AppColor.Secondary,
     display: "flex",
     flexDirection: "column",
     height: "100vh",

@@ -1,21 +1,10 @@
-import {
-  Chip,
-  ChipOwnProps,
-  IconButton,
-  Paper,
-  Skeleton,
-  Stack,
-} from "@mui/material";
-import {
-  AddressType,
-  InquiryStatus,
-  Patient,
-  useListPatientsQuery,
-} from "../../apiSlice";
+import { IconButton, Paper, Skeleton, Stack } from "@mui/material";
+import { AddressType, Patient, useListPatientsQuery } from "../../apiSlice";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { format } from "date-fns";
 import { Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { PatientStatusChip } from "./PatientStatusChip";
 
 export const PatientListPage = () => {
   const navigate = useNavigate();
@@ -31,7 +20,7 @@ export const PatientListPage = () => {
       headerName: "Date of Birth",
       flex: 1,
       valueGetter: (dob) => {
-        return format(dob, "MM/dd/yyyy");
+        return format(dob, "PPP");
       },
     },
     {
@@ -51,14 +40,7 @@ export const PatientListPage = () => {
       headerName: "Intake Status",
       flex: 1,
       renderCell: ({ row: { status } }) => {
-        const statusColor = {
-          [InquiryStatus.Churned]: "error" as ChipOwnProps["color"],
-          [InquiryStatus.Onboarding]: "info" as ChipOwnProps["color"],
-          [InquiryStatus.Active]: "success" as ChipOwnProps["color"],
-          [InquiryStatus.Inquiry]: "warning" as ChipOwnProps["color"],
-        }[status];
-
-        return <Chip color={statusColor} label={status} />;
+        return <PatientStatusChip status={status} />;
       },
     },
     {
@@ -104,11 +86,19 @@ export const PatientListPage = () => {
           disableColumnSelector
           sx={{
             "& .MuiDataGrid-container--top [role=row]": {
-              backgroundColor: "#d8e5f7",
+              backgroundColor: "#ece3de",
             },
+            "& .MuiDataGrid-columnHeaderTitle": {
+              fontWeight: "bold",
+            },
+            // Remove the outlined selection
             "& .MuiDataGrid-cell:focus": {
-              outline: "none", // Remove outline
-              boxShadow: "none", // Remove any shadow if applied
+              outline: "none",
+              boxShadow: "none",
+            },
+            "& .MuiDataGrid-columnHeader:focus": {
+              outline: "none",
+              boxShadow: "none",
             },
           }}
         ></DataGrid>

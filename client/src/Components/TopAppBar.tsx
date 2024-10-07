@@ -7,16 +7,17 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import { Spa } from "@mui/icons-material";
 import { Stack } from "@mui/material";
+import { AppColor } from "../constants";
 
 export const TopAppBar = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: AppColor.Primary }}>
       <Toolbar
         disableGutters
         sx={{ padding: "0 2rem", justifyContent: "space-between" }}
       >
         <Stack direction="row">
-          <Spa sx={{ fontSize: "28px" }} />
+          <Spa sx={{ fontSize: "28px", color: AppColor.Secondary }} />
           <Typography
             variant="h5"
             sx={{
@@ -24,6 +25,7 @@ export const TopAppBar = () => {
               ml: 1,
               fontFamily: "monospace",
               fontWeight: 700,
+              color: AppColor.Secondary,
             }}
           >
             Finni Health
