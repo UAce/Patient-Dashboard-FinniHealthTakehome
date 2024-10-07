@@ -46,7 +46,7 @@ export const apiSlice = createApi({
   tagTypes: ["Patient"],
   endpoints: (builder) => ({
     // Query
-    getPatientById: builder.query<Patient, number>({
+    getPatientById: builder.query<Patient, string>({
       query: (id) => `patients/${id}`,
       providesTags: ["Patient"],
     }),
@@ -77,11 +77,10 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Patient"],
     }),
-    removePatient: builder.mutation<Patient, Partial<Patient>>({
-      query: (patient) => ({
-        url: `/patients/${patient.id}`,
+    removePatient: builder.mutation<Patient, string>({
+      query: (id) => ({
+        url: `/patients/${id}`,
         method: "DELETE",
-        body: patient,
       }),
       invalidatesTags: ["Patient"],
     }),

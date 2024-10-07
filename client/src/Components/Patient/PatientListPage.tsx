@@ -1,11 +1,20 @@
-import { Paper, Skeleton } from "@mui/material";
-import { AddressType, Patient, useListPatientsQuery } from "../apiSlice";
+import { IconButton, Paper, Skeleton, Stack } from "@mui/material";
+import {
+  AddressType,
+  Patient,
+  useListPatientsQuery,
+  useRemovePatientMutation,
+} from "../../apiSlice";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { format } from "date-fns";
+import { Delete, Visibility } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 export const PatientListPage = () => {
+  const navigate = useNavigate();
   // TODO: Pass search and status filters
   const { isLoading, data } = useListPatientsQuery(undefined, {});
+  const [deletePatient] = useRemovePatientMutation();
 
   const columns: GridColDef[] = [
     { field: "firstName", headerName: "First Name", flex: 1 },
@@ -31,6 +40,32 @@ export const PatientListPage = () => {
       },
     },
     { field: "status", headerName: "Intake Status", flex: 1 },
+    {
+      field: "id",
+      headerName: "Action",
+      flex: 1,
+      renderCell: ({ id }) => {
+        return (
+          <Stack flexDirection="row">
+            <IconButton onClick={() => navigate(`/patients/${id}`)}>
+              <Visibility />
+            </IconButton>
+            <IconButton
+              onClick={async () => {
+                try {
+                  // TODO: Add confirmation dialog + success toast
+                  await deletePatient(`${id}`).unwrap();
+                } catch (error) {
+                  console.error(error);
+                }
+              }}
+            >
+              <Delete />
+            </IconButton>
+          </Stack>
+        );
+      },
+    },
   ];
 
   return (

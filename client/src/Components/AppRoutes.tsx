@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { PatientListPage } from "./PatientListPage";
+import { PatientListPage } from "./Patient/PatientListPage";
 import { Typography } from "@mui/material";
+import { PatientViewPage } from "./Patient/PatientViewPage";
 
 export const AppRoutes = () => (
   <Routes>
@@ -11,9 +12,6 @@ export const AppRoutes = () => (
       path="patients/:id/edit"
       element={<Typography>Edit patient</Typography>}
     />
-    <Route
-      path="patients/:id"
-      element={<Typography>View patient</Typography>}
-    />
+    <Route path="patients/:id" element={<PatientViewPage />} />
   </Routes>
 );
