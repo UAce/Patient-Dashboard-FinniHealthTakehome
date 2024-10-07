@@ -10,7 +10,7 @@ import {
   SxProps,
   Theme,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type SideMenuStyles = {
   drawer: SxProps<Theme>;
@@ -28,6 +28,8 @@ const sx: SideMenuStyles = {
 
 export const SideMenu = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   return (
     <Drawer variant="permanent" sx={sx.drawer}>
       <List
@@ -40,7 +42,10 @@ export const SideMenu = () => {
         }
       >
         <ListItem sx={{ padding: 0 }}>
-          <ListItemButton onClick={() => navigate("/patients")}>
+          <ListItemButton
+            selected={pathname.startsWith("/patients")}
+            onClick={() => navigate("/patients")}
+          >
             <ListItemIcon
               sx={{
                 minWidth: (theme) => theme.spacing(4),
