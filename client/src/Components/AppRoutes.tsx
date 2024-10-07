@@ -4,6 +4,7 @@ import { Typography } from "@mui/material";
 import { PatientViewPage } from "./Patient/PatientViewPage";
 import { PatientEditPage } from "./Patient/PatientEditPage";
 import { PatientListContextProvider } from "./Patient/PatientListContext";
+import { PatientFormContextProvider } from "./Patient/Form/PatientFormContext";
 
 export const AppRoutes = () => (
   <Routes>
@@ -17,8 +18,22 @@ export const AppRoutes = () => (
         </PatientListContextProvider>
       }
     />
-    <Route path="patients/add" element={<Typography>Add patient</Typography>} />
-    <Route path="patients/:id/edit" element={<PatientEditPage />} />
+    <Route
+      path="patients/add"
+      element={
+        <PatientFormContextProvider>
+          <Typography>Add patient</Typography>
+        </PatientFormContextProvider>
+      }
+    />
+    <Route
+      path="patients/:id/edit"
+      element={
+        <PatientFormContextProvider>
+          <PatientEditPage />
+        </PatientFormContextProvider>
+      }
+    />
     <Route path="patients/:id" element={<PatientViewPage />} />
   </Routes>
 );

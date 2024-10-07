@@ -1,14 +1,14 @@
 import { Stack, Typography } from "@mui/material";
 import { PropsWithChildren, ReactNode } from "react";
 
-export interface PatientEditSectionProps {
+export interface PatientFormSectionProps {
   title: string | ReactNode;
 }
 
-export const PatientEditSection = ({
+export const PatientFormSection = ({
   title,
   children,
-}: PatientEditSectionProps & PropsWithChildren) => {
+}: PatientFormSectionProps & PropsWithChildren) => {
   return (
     <Stack sx={{ margin: "24px 0" }}>
       {typeof title === "string" ? (
