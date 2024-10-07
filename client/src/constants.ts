@@ -1,4 +1,4 @@
 export const AppColor = {
-  Primary: "#ec7b32",
-  Secondary: "#f1ece0",
+  Primary: "#EF742E",
+  Secondary: "#F1EBDF",
 } as const;
