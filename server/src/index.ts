@@ -41,13 +41,17 @@ app.use("/api/patients", PatientRouter);
  */
 mongoose
   .connect(mongoUrl)
-  .then(() => {
+  .then(async () => {
     logger.info("MongoDB connected!");
 
     app.listen(port, host, () => {
       logger.info(`Server is running on port ${port}`);
     });
+
+    // Seed the database
+    // logger.info("Seeding database...");
+    // await seedDatabase(50);
   })
   .catch((error) => {
-    logger.error("MongoDB connection error:", error);
+    logger.error(error, "MongoDB connection error:");
   });

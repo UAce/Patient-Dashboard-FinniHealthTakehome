@@ -19,6 +19,11 @@ const addressSchema = new Schema({
   postalCode: { type: String, required: true, trim: true },
 });
 
+const metadataSchema = new Schema({
+  key: { type: String, required: true, trim: true },
+  value: { type: String, required: true, trim: true },
+});
+
 export enum InquiryStatus {
   Inquiry = "Inquiry",
   Onboarding = "Onboarding",
@@ -43,8 +48,8 @@ const patientSchema = new Schema(
       required: true,
     },
     addresses: [addressSchema], // Array of addresses
-    metadata: { type: Map, of: String }, // Arbitrary fields
     deletedAt: { type: Date, default: null },
+    metadata: [metadataSchema], // Arbitrary fields
   },
   {
     // Enables createdAt, updatedAt

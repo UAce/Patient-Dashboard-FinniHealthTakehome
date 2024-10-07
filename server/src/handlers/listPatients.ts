@@ -35,12 +35,13 @@ export const listPatientsHandler = async (
       };
     }
 
-    const patients = await PatientModel.find({
+    const patientsQuery = PatientModel.find({
       ...searchFilter,
       // TODO: check status is valid enum
       ...(query.status ? { status: query.status } : {}),
-    });
-    res.status(200).send(patients);
+    }).sort({ status: -1 });
+
+    res.status(200).send(await patientsQuery.exec());
   } catch (error: any) {
     res.status(500).send(`Failed to list patients: ${error.message}`);
   }

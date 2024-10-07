@@ -32,7 +32,14 @@ const AddPatientRequestSchema = Joi.object({
       })
     )
     .required(),
-  metadata: Joi.object().optional(),
+  metadata: Joi.array()
+    .items(
+      Joi.object({
+        key: Joi.string().required(),
+        value: Joi.string().required(),
+      })
+    )
+    .optional(),
 }).required();
 
 export const addPatientHandler = async (

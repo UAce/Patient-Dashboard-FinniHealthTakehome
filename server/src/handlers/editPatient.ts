@@ -33,7 +33,14 @@ const EditPatientRequestSchema = Joi.object({
       }).optional()
     )
     .optional(),
-  metadata: Joi.object().optional(),
+  metadata: Joi.array()
+    .items(
+      Joi.object({
+        key: Joi.string().required(),
+        value: Joi.string().required(),
+      })
+    )
+    .optional(),
 });
 
 export const editPatientHandler = async (
