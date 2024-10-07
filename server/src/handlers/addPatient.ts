@@ -47,7 +47,7 @@ export const addPatientHandler = async (
   res: Response
 ): Promise<void> => {
   const body = req.body;
-  logger.info(body, "Adding patient");
+  logger.info("Adding patient");
 
   try {
     assertSchema(AddPatientRequestSchema, body);

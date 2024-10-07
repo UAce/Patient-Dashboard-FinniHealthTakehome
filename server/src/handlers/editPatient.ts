@@ -49,13 +49,7 @@ export const editPatientHandler = async (
 ): Promise<void> => {
   const body = req.body;
   const params = req.params;
-  logger.info(
-    {
-      params,
-      body,
-    },
-    "Editing patient"
-  );
+  logger.info("Editing patient");
 
   try {
     assertSchema(EditPatientRequestSchema, body);
