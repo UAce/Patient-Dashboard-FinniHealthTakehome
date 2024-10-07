@@ -15,7 +15,6 @@ import { ArrowBack, Edit } from "@mui/icons-material";
 import { KeyValue } from "../KeyValue";
 import { PatientViewSection } from "./PatientViewSection";
 import { PatientStatusChip } from "./PatientStatusChip";
-import { isEmpty } from "lodash";
 import dayjs from "dayjs";
 import { camelCaseToWords } from "../../utils";
 
@@ -89,13 +88,13 @@ export const PatientViewPage = () => {
                 </PatientViewSection>
               );
             })}
-            {!isEmpty(data.metadata) ? (
+            {data.metadata.length > 0 ? (
               <PatientViewSection title="Additional Information">
-                {Object.keys(data.metadata).map((key) => {
+                {data.metadata.map(({ key, value }, index) => {
                   return (
                     <KeyValue
-                      key={key}
-                      value={data.metadata[key]}
+                      key={`${key}-${index}`}
+                      value={value}
                       name={camelCaseToWords(key)}
                     />
                   );

@@ -23,7 +23,7 @@ import { Add, ArrowBack, Clear } from "@mui/icons-material";
 import { PatientEditSection } from "./PatientEditSection";
 import { BaseSyntheticEvent, useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { isEmpty, pick } from "lodash";
+import { pick } from "lodash";
 import { AppColor } from "../../constants";
 
 export const PatientEditPage = () => {
@@ -247,9 +247,9 @@ export const PatientEditPage = () => {
                 Add Secondary Address
               </Button>
 
-              {!isEmpty(formData.metadata) ? (
+              {formData.metadata && formData.metadata?.length > 0 ? (
                 <PatientEditSection title="Additional Information">
-                  {Object.keys(formData.metadata).map((key, index) => {
+                  {formData.metadata.map(({ key, value }, index) => {
                     return (
                       <Stack flexDirection="row" gap={1} key={key}>
                         <TextField
@@ -262,9 +262,9 @@ export const PatientEditPage = () => {
                           key={key}
                           variant="outlined"
                           label="value"
-                          defaultValue={formData.metadata?.[key]}
+                          defaultValue={value}
                           required
-                        />{" "}
+                        />
                         <Button
                           onClick={() => removeSecondaryAddress(index)}
                           startIcon={<Clear />}

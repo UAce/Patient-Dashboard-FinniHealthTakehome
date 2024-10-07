@@ -28,7 +28,10 @@ export interface Patient {
     country: string;
     postalCode: string;
   }>;
-  metadata: Record<string, string>;
+  metadata: Array<{
+    key: string;
+    value: string;
+  }>;
   deletedAt: null;
   createdAt: string;
   updatedAt: string;
