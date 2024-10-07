@@ -39,6 +39,7 @@ export const PatientListPage = () => {
         // TODO: make a better skeleton or a loading circle bar
         <Skeleton />
       ) : (
+        // TODO: show empty list if no patients
         <DataGrid columns={columns} rows={data}></DataGrid>
       )}
     </Paper>

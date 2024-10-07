@@ -2,7 +2,8 @@ import "./App.css";
 import { Box, Stack, SxProps, Theme } from "@mui/material";
 import { TopAppBar } from "./Components/TopAppBar";
 import { SideMenu } from "./Components/SideMenu";
-import { PatientListPage } from "./Components/PatientListPage";
+import { BrowserRouter } from "react-router-dom";
+import { AppRoutes } from "./Components/AppRoutes";
 
 type LayoutStyles = {
   root: SxProps<Theme>;
@@ -30,15 +31,17 @@ const sx: LayoutStyles = {
 
 function App() {
   return (
-    <Box component="section" sx={sx.root}>
-      <TopAppBar />
-      <Stack direction="row" sx={sx.layout}>
-        <SideMenu />
-        <Stack component="main" sx={sx.content}>
-          <PatientListPage />
+    <BrowserRouter>
+      <Box component="section" sx={sx.root}>
+        <TopAppBar />
+        <Stack direction="row" sx={sx.layout}>
+          <SideMenu />
+          <Stack component="main" sx={sx.content}>
+            <AppRoutes />
+          </Stack>
         </Stack>
-      </Stack>
-    </Box>
+      </Box>
+    </BrowserRouter>
   );
 }
 
