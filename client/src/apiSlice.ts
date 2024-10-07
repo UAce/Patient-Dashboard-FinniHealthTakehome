@@ -12,8 +12,8 @@ export enum AddressType {
   Secondary = "Secondary",
 }
 
-interface Patient {
-  _id: string;
+export interface Patient {
+  id: string;
   firstName: string;
   middleName?: string;
   lastName: string;
@@ -21,6 +21,7 @@ interface Patient {
   status: InquiryStatus;
   addresses: [
     {
+      id: string;
       type: AddressType;
       line1: string;
       line2?: string;
@@ -28,7 +29,6 @@ interface Patient {
       area: string;
       country: string;
       postalCode: string;
-      _id: string;
     }
   ];
   metadata: {
@@ -52,10 +52,12 @@ export const apiSlice = createApi({
     }),
     listPatients: builder.query<
       Patient[],
-      { search?: string; status?: InquiryStatus }
+      { search?: string; status?: InquiryStatus } | undefined
     >({
-      query: ({ search, status }) =>
-        `patients?search=${search}&status=${status}`,
+      query: (filters = {}) => {
+        const params = new URLSearchParams(filters);
+        return `patients?${params.toString()}`;
+      },
       providesTags: ["Patient"],
     }),
     // Mutation
@@ -69,7 +71,7 @@ export const apiSlice = createApi({
     }),
     editPatient: builder.mutation<Patient, Partial<Patient>>({
       query: (patient) => ({
-        url: `/patients/${patient._id}`,
+        url: `/patients/${patient.id}`,
         method: "PUT",
         body: patient,
       }),
@@ -77,7 +79,7 @@ export const apiSlice = createApi({
     }),
     removePatient: builder.mutation<Patient, Partial<Patient>>({
       query: (patient) => ({
-        url: `/patients/${patient._id}`,
+        url: `/patients/${patient.id}`,
         method: "DELETE",
         body: patient,
       }),

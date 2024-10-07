@@ -47,7 +47,25 @@ const patientSchema = new Schema(
     deletedAt: { type: Date, default: null },
   },
   {
+    // Enables createdAt, updatedAt
     timestamps: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id; // Rename _id to id
+        delete ret._id; // Optionally delete _id
+        delete ret.__v; // Optionally delete version key
+
+        // Transform id of each address
+        if (ret.addresses) {
+          ret.addresses = ret.addresses.map(({ _id, ...address }: any) => {
+            return {
+              id: _id, // Rename _id to id
+              ...address, // Get all other fields
+            };
+          });
+        }
+      },
+    },
   }
 );
 
