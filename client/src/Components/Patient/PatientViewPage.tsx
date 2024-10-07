@@ -15,8 +15,9 @@ import { ArrowBack, Edit } from "@mui/icons-material";
 import { KeyValue } from "../KeyValue";
 import { PatientViewSection } from "./PatientViewSection";
 import { PatientStatusChip } from "./PatientStatusChip";
-import { capitalize, isEmpty } from "lodash";
+import { isEmpty } from "lodash";
 import dayjs from "dayjs";
+import { camelCaseToWords } from "../../utils";
 
 export const PatientViewPage = () => {
   const { id } = useParams();
@@ -71,10 +72,10 @@ export const PatientViewPage = () => {
                 name="Date of Birth"
               />
             </PatientViewSection>
-            {data.addresses.map((address) => {
+            {data.addresses.map((address, index) => {
               return (
                 <PatientViewSection
-                  key={address.id}
+                  key={`address-${index}`}
                   title={`${address.type} Address`}
                 >
                   <KeyValue
@@ -95,7 +96,7 @@ export const PatientViewPage = () => {
                     <KeyValue
                       key={key}
                       value={data.metadata[key]}
-                      name={capitalize(key)}
+                      name={camelCaseToWords(key)}
                     />
                   );
                 })}

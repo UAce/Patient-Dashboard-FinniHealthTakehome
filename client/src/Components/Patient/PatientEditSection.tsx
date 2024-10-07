@@ -1,8 +1,8 @@
 import { Stack, Typography } from "@mui/material";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 export interface PatientEditSectionProps {
-  title: string;
+  title: string | ReactNode;
 }
 
 export const PatientEditSection = ({
@@ -10,21 +10,17 @@ export const PatientEditSection = ({
   children,
 }: PatientEditSectionProps & PropsWithChildren) => {
   return (
-    <Stack
-      sx={{
-        // padding: "24px",
-        margin: "24px 0",
-        // border: "solid #e6e6e6",
-        // borderWidth: "1.5px",
-        // borderRadius: "8px",
-      }}
-    >
-      <Typography
-        variant="h6"
-        sx={{ fontWeight: "bold", paddingBottom: "2rem" }}
-      >
-        {title}
-      </Typography>
+    <Stack sx={{ margin: "24px 0" }}>
+      {typeof title === "string" ? (
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: "bold", paddingBottom: "2rem" }}
+        >
+          {title}
+        </Typography>
+      ) : (
+        title
+      )}
       <Stack
         rowGap={2}
         sx={{

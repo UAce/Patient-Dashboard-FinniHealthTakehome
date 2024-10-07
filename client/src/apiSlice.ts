@@ -19,18 +19,15 @@ export interface Patient {
   lastName: string;
   dateOfBirth: string; // ISO date string
   status: InquiryStatus;
-  addresses: [
-    {
-      id: string;
-      type: AddressType;
-      line1: string;
-      line2?: string;
-      city: string;
-      area: string;
-      country: string;
-      postalCode: string;
-    }
-  ];
+  addresses: Array<{
+    type: AddressType;
+    line1: string;
+    line2?: string;
+    city: string;
+    area: string;
+    country: string;
+    postalCode: string;
+  }>;
   metadata: Record<string, string>;
   deletedAt: null;
   createdAt: string;
