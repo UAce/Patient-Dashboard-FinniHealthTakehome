@@ -1,10 +1,10 @@
 import { IconButton, Paper, Skeleton, Stack } from "@mui/material";
 import { AddressType, Patient, useListPatientsQuery } from "../../apiSlice";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { format } from "date-fns";
 import { Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { PatientStatusChip } from "./PatientStatusChip";
+import dayjs from "dayjs";
 
 export const PatientListPage = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export const PatientListPage = () => {
       headerName: "Date of Birth",
       flex: 1,
       valueGetter: (dob) => {
-        return format(dob, "PPP");
+        return dayjs(dob).format("LL");
       },
     },
     {

@@ -1,22 +1,22 @@
 import { Stack, Typography } from "@mui/material";
 import { PropsWithChildren } from "react";
 
-export interface PatientViewSectionProps {
+export interface PatientEditSectionProps {
   title: string;
 }
 
-export const PatientViewSection = ({
+export const PatientEditSection = ({
   title,
   children,
-}: PatientViewSectionProps & PropsWithChildren) => {
+}: PatientEditSectionProps & PropsWithChildren) => {
   return (
     <Stack
       sx={{
-        padding: "24px",
+        // padding: "24px",
         margin: "24px 0",
-        border: "solid #e6e6e6",
-        borderWidth: "1.5px",
-        borderRadius: "8px",
+        // border: "solid #e6e6e6",
+        // borderWidth: "1.5px",
+        // borderRadius: "8px",
       }}
     >
       <Typography
@@ -26,9 +26,7 @@ export const PatientViewSection = ({
         {title}
       </Typography>
       <Stack
-        flexDirection="row"
-        columnGap={5}
-        rowGap={1}
+        rowGap={2}
         sx={{
           maxWidth: "900px",
           flexWrap: "wrap",

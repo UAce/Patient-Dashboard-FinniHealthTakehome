@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Divider,
   IconButton,
   Paper,
@@ -10,12 +11,12 @@ import {
 import { useGetPatientByIdQuery } from "../../apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { skipToken } from "@reduxjs/toolkit/query";
-import { ArrowBack } from "@mui/icons-material";
+import { ArrowBack, Edit } from "@mui/icons-material";
 import { KeyValue } from "../KeyValue";
-import { format } from "date-fns";
 import { PatientViewSection } from "./PatientViewSection";
 import { PatientStatusChip } from "./PatientStatusChip";
 import { capitalize, isEmpty } from "lodash";
+import dayjs from "dayjs";
 
 export const PatientViewPage = () => {
   const { id } = useParams();
@@ -28,8 +29,7 @@ export const PatientViewPage = () => {
       {isLoading ? (
         // TODO: make a better skeleton or a loading circle bar
         <Skeleton />
-      ) : // TODO: show empty list if no patients
-      data ? (
+      ) : data ? (
         <>
           <Stack
             flexDirection="row"
@@ -45,18 +45,29 @@ export const PatientViewPage = () => {
           <Box
             sx={{
               margin: "24px",
+              maxWidth: "900px",
             }}
           >
-            <Stack flexDirection="row" alignItems="center" columnGap={0.5}>
-              <Typography variant="h6">Status:</Typography>
-              <PatientStatusChip status={data.status} />
+            <Stack flexDirection="row" sx={{ justifyContent: "space-between" }}>
+              <Stack flexDirection="row" alignItems="center" columnGap={0.5}>
+                <Typography variant="h6">Status:</Typography>
+                <PatientStatusChip status={data.status} />
+              </Stack>
+              <Button
+                variant="outlined"
+                startIcon={<Edit />}
+                onClick={() => navigate(`/patients/${data.id}/edit`)}
+                sx={{ borderColor: "grey.500", color: "grey.700" }}
+              >
+                Edit
+              </Button>
             </Stack>
             <PatientViewSection title="Personal Information">
               <KeyValue value={data.firstName} name="First Name" />
               <KeyValue value={data.middleName || "-"} name="Middle Name" />
               <KeyValue value={data.lastName} name="Last Name" />
               <KeyValue
-                value={format(data.dateOfBirth, "PPP")}
+                value={dayjs(data.dateOfBirth).format("LL")}
                 name="Date of Birth"
               />
             </PatientViewSection>
@@ -73,7 +84,7 @@ export const PatientViewPage = () => {
                   <KeyValue value={address.city} name="City" />
                   <KeyValue value={address.area} name="Area" />
                   <KeyValue value={address.country} name="Country" />
-                  <KeyValue value={address.postalCode} name="postalCode" />
+                  <KeyValue value={address.postalCode} name="Postal Code" />
                 </PatientViewSection>
               );
             })}

@@ -17,7 +17,7 @@ export interface Patient {
   firstName: string;
   middleName?: string;
   lastName: string;
-  dateOfBirth: Date;
+  dateOfBirth: string; // ISO date string
   status: InquiryStatus;
   addresses: [
     {
@@ -36,6 +36,15 @@ export interface Patient {
   createdAt: string;
   updatedAt: string;
 }
+
+export const updatableFields = [
+  "firstName",
+  "middleName",
+  "lastName",
+  "dateOfBirth",
+  "addresses",
+  "metadata",
+];
 
 export const apiSlice = createApi({
   reducerPath: "api",
