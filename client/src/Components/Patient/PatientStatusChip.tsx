@@ -1,5 +1,5 @@
 import { ChipOwnProps, Chip } from "@mui/material";
-import { IntakeStatus } from "../../apiSlice";
+import { IntakeStatus } from "../../Common/apiSlice";
 
 export const PatientStatusChip = ({ status }: { status: IntakeStatus }) => {
   const statusColor = {

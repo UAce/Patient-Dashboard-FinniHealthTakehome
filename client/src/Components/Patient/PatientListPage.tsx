@@ -1,5 +1,9 @@
 import { IconButton, Paper, Skeleton, Stack } from "@mui/material";
-import { AddressType, Patient, useListPatientsQuery } from "../../apiSlice";
+import {
+  AddressType,
+  Patient,
+  useListPatientsQuery,
+} from "../../Common/apiSlice";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";

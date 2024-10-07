@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useGetPatientByIdQuery } from "../../apiSlice";
+import { useGetPatientByIdQuery } from "../../Common/apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { ArrowBack, Edit } from "@mui/icons-material";

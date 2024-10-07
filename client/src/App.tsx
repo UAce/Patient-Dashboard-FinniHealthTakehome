@@ -4,7 +4,7 @@ import { TopAppBar } from "./Components/TopAppBar";
 import { SideMenu } from "./Components/SideMenu";
 import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./Components/AppRoutes";
-import { AppColor } from "./constants";
+import { AppColor } from "./Common/constants";
 
 type LayoutStyles = {
   root: SxProps<Theme>;

@@ -16,7 +16,7 @@ import {
   updatableFields,
   useEditPatientMutation,
   useGetPatientByIdQuery,
-} from "../../apiSlice";
+} from "../../Common/apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { Add, ArrowBack, Clear } from "@mui/icons-material";
@@ -24,7 +24,7 @@ import { PatientEditSection } from "./PatientEditSection";
 import { BaseSyntheticEvent, useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { pick } from "lodash";
-import { AppColor } from "../../constants";
+import { AppColor } from "../../Common/constants";
 
 export const PatientEditPage = () => {
   const { id } = useParams();
@@ -101,7 +101,7 @@ export const PatientEditPage = () => {
     }
   }, [data]);
 
-  function addAdditionalField(): void {
+  function addAdditionalInfo(): void {
     throw new Error("Function not implemented.");
   }
 
@@ -175,110 +175,117 @@ export const PatientEditPage = () => {
                 />
               </PatientEditSection>
 
-              {formData.addresses?.map((address, index) => {
-                return (
-                  <PatientEditSection
-                    title={
-                      <Stack
-                        flexDirection={"row"}
-                        sx={{
-                          alignItems: "start",
-                          justifyContent: "space-between",
-                        }}
-                        columnGap={2}
-                      >
-                        <Typography
-                          variant="h6"
-                          sx={{ fontWeight: "bold", paddingBottom: "2rem" }}
+              <Stack>
+                {formData.addresses?.map((address, index) => {
+                  return (
+                    <PatientEditSection
+                      title={
+                        <Stack
+                          flexDirection={"row"}
+                          sx={{
+                            alignItems: "start",
+                            justifyContent: "space-between",
+                          }}
+                          columnGap={2}
                         >
-                          {address.type} Address
-                        </Typography>
-                        {address.type === AddressType.Secondary ? (
+                          <Typography
+                            variant="h6"
+                            sx={{ fontWeight: "bold", paddingBottom: "2rem" }}
+                          >
+                            {address.type} Address
+                          </Typography>
+                          {address.type === AddressType.Secondary ? (
+                            <Button
+                              onClick={() => removeSecondaryAddress(index)}
+                              startIcon={<Clear />}
+                            >
+                              Remove
+                            </Button>
+                          ) : null}
+                        </Stack>
+                      }
+                      key={`address-${index}`}
+                    >
+                      <TextField
+                        variant="outlined"
+                        value={address.line1}
+                        label="Address Line 1"
+                        required
+                      />
+                      <TextField
+                        variant="outlined"
+                        value={address.line2}
+                        label="Address Line 2"
+                      />
+                      <TextField
+                        variant="outlined"
+                        value={address.city}
+                        label="City"
+                        required
+                      />
+                      <TextField
+                        variant="outlined"
+                        value={address.area}
+                        label="Area"
+                        required
+                      />
+                      <TextField
+                        variant="outlined"
+                        value={address.country}
+                        label="Country"
+                        required
+                      />
+                      <TextField
+                        variant="outlined"
+                        value={address.postalCode}
+                        label="Postal Code"
+                        required
+                      />
+                    </PatientEditSection>
+                  );
+                })}
+                <Button
+                  startIcon={<Add />}
+                  onClick={() => addSecondaryAddress()}
+                >
+                  Add Secondary Address
+                </Button>
+              </Stack>
+
+              <Stack>
+                {formData.metadata && formData.metadata?.length > 0 ? (
+                  <PatientEditSection title="Additional Information">
+                    {formData.metadata.map(({ key, value }, index) => {
+                      return (
+                        <Stack flexDirection="row" gap={1} key={key}>
+                          <TextField
+                            variant="outlined"
+                            label="key"
+                            defaultValue={key}
+                            required
+                          />
+                          <TextField
+                            key={key}
+                            variant="outlined"
+                            label="value"
+                            defaultValue={value}
+                            required
+                          />
                           <Button
                             onClick={() => removeSecondaryAddress(index)}
                             startIcon={<Clear />}
                           >
                             Remove
                           </Button>
-                        ) : null}
-                      </Stack>
-                    }
-                    key={`address-${index}`}
-                  >
-                    <TextField
-                      variant="outlined"
-                      value={address.line1}
-                      label="Address Line 1"
-                      required
-                    />
-                    <TextField
-                      variant="outlined"
-                      value={address.line2}
-                      label="Address Line 2"
-                    />
-                    <TextField
-                      variant="outlined"
-                      value={address.city}
-                      label="City"
-                      required
-                    />
-                    <TextField
-                      variant="outlined"
-                      value={address.area}
-                      label="Area"
-                      required
-                    />
-                    <TextField
-                      variant="outlined"
-                      value={address.country}
-                      label="Country"
-                      required
-                    />
-                    <TextField
-                      variant="outlined"
-                      value={address.postalCode}
-                      label="Postal Code"
-                      required
-                    />
+                        </Stack>
+                      );
+                    })}
                   </PatientEditSection>
-                );
-              })}
-              <Button startIcon={<Add />} onClick={() => addSecondaryAddress()}>
-                Add Secondary Address
-              </Button>
-
-              {formData.metadata && formData.metadata?.length > 0 ? (
-                <PatientEditSection title="Additional Information">
-                  {formData.metadata.map(({ key, value }, index) => {
-                    return (
-                      <Stack flexDirection="row" gap={1} key={key}>
-                        <TextField
-                          variant="outlined"
-                          label="key"
-                          defaultValue={key}
-                          required
-                        />
-                        <TextField
-                          key={key}
-                          variant="outlined"
-                          label="value"
-                          defaultValue={value}
-                          required
-                        />
-                        <Button
-                          onClick={() => removeSecondaryAddress(index)}
-                          startIcon={<Clear />}
-                        >
-                          Remove
-                        </Button>
-                      </Stack>
-                    );
-                  })}
-                </PatientEditSection>
-              ) : null}
-              <Button startIcon={<Add />} onClick={() => addAdditionalField()}>
-                Add New Field
-              </Button>
+                ) : null}
+                <Button startIcon={<Add />} onClick={() => addAdditionalInfo()}>
+                  Add Additional Information
+                </Button>
+              </Stack>
 
               <Stack
                 spacing={2}

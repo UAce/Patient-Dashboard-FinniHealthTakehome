@@ -4,9 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { store } from "./store";
+import { store } from "./Common/store";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "./Common/theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,7 +17,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </LocalizationProvider>
     </Provider>
   </React.StrictMode>
