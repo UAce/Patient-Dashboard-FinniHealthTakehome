@@ -38,7 +38,7 @@ export const PatientAddPage = () => {
             dispatch(
               openToast({
                 severity: "success",
-                title: "Patient profile added!",
+                title: "Patient profile added",
               })
             );
             navigate(`/patients/${patient.id}`);

@@ -14,7 +14,7 @@ export const TopAppBar = () => {
     <AppBar
       position="relative"
       sx={{
-        backgroundColor: AppColor.Secondary,
+        backgroundColor: AppColor.Primary,
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
@@ -23,15 +23,14 @@ export const TopAppBar = () => {
         sx={{ padding: "0 2rem", justifyContent: "space-between" }}
       >
         <Stack direction="row">
-          <Spa sx={{ fontSize: "35px", color: AppColor.Primary }} />
+          <Spa sx={{ fontSize: "35px", color: AppColor.Secondary }} />
           <Typography
             variant="h4"
             sx={{
               mr: 2,
               ml: 1,
-              fontFamily: "monospace",
               fontWeight: "bold",
-              color: AppColor.Primary,
+              color: AppColor.Secondary,
             }}
           >
             Finni Health

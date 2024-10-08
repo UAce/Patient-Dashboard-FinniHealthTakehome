@@ -44,7 +44,9 @@ export const PatientFormPersonalInformation = () => {
             helperText: dobError ? "Please set a valid date of birth" : "",
           },
         }}
-        defaultValue={patientData ? dayjs(patientData.dateOfBirth) : undefined}
+        defaultValue={
+          patientData?.dateOfBirth ? dayjs(patientData.dateOfBirth) : undefined
+        }
         onChange={(date: Dayjs | null) => {
           if (
             isDayjs(date) &&

@@ -45,7 +45,7 @@ export const PatientEditPage = () => {
                 dispatch(
                   openToast({
                     severity: "success",
-                    title: "Patient profile saved!",
+                    title: "Patient profile saved",
                   })
                 );
               } catch (error) {

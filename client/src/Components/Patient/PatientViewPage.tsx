@@ -40,7 +40,7 @@ export const PatientViewPage = () => {
       dispatch(
         openToast({
           severity: "success",
-          title: "Patient profile deleted!",
+          title: "Patient profile deleted",
         })
       );
       navigate(`/patients`);

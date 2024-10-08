@@ -17,7 +17,6 @@ import {
 import { useState, MouseEvent } from "react";
 import { IntakeStatus } from "../../Common/apiSlice";
 import { PatientStatusChip } from "./PatientStatusChip";
-import { AppColor } from "../../Common/constants";
 import { useNavigate } from "react-router-dom";
 
 interface PatientListToolbarProps {
@@ -116,12 +115,11 @@ export const PatientListToolbar = ({
               }
               endIcon={<KeyboardArrowDown />}
               sx={{
-                borderRadius: "10px",
-                padding: "0.5rem 1rem",
+                borderRadius: 3,
                 height: "100%",
               }}
             >
-              Statuses
+              Status Filter
             </Button>
             <Menu
               id="menu-sort-by-selector"
@@ -185,8 +183,7 @@ export const PatientListToolbar = ({
         sx={{
           width: "160px",
           height: "100%",
-          color: AppColor.Secondary,
-          fontWeight: "bold",
+          color: "white",
         }}
         onClick={() => navigate("/patients/add")}
       >

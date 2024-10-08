@@ -1,8 +1,8 @@
 import { Stack, Typography } from "@mui/material";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 export interface PatientViewSectionProps {
-  title: string;
+  title: string | ReactNode;
 }
 
 export const PatientViewSection = ({

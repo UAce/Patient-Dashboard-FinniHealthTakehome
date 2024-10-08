@@ -2,6 +2,9 @@ import { createTheme } from "@mui/material";
 import { AppColor } from "./constants";
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: '"Poppins", "Helvetica", "Arial", sans-serif',
+  },
   palette: {
     primary: {
       main: AppColor.Primary,
@@ -9,14 +12,5 @@ export const theme = createTheme({
     secondary: {
       main: AppColor.Secondary,
     },
-  },
-  components: {
-    // MuiPaper: {
-    //   defaultProps: {
-    //     sx: {
-    //       backgroundColor: AppColor.Secondary,
-    //     },
-    //   },
-    // },
   },
 });

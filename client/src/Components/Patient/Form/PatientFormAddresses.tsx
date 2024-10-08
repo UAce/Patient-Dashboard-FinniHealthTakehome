@@ -3,36 +3,32 @@ import { Stack, Typography, Button, TextField } from "@mui/material";
 import { AddressType, Patient } from "../../../Common/apiSlice";
 import { PatientFormSection } from "./PatientFormSection";
 import { usePatientFormContext } from "./PatientFormContext";
-import { useCallback, useEffect } from "react";
 
 export const PatientFormAddresses = () => {
-  const { isLoading, patientData, setPatientData } = usePatientFormContext();
+  const { patientData, setPatientData } = usePatientFormContext();
 
-  const addAddress = useCallback(
-    (type: AddressType) => {
-      const oldAddresses = patientData?.addresses || [];
+  const addSecondaryAddress = () => {
+    const oldAddresses = patientData?.addresses || [];
 
-      setPatientData({
-        ...patientData,
-        addresses: [
-          ...oldAddresses,
-          {
-            // empty address
-            type,
-            line1: "",
-            line2: "",
-            city: "",
-            area: "",
-            country: "",
-            postalCode: "",
-          },
-        ],
-      });
-    },
-    [patientData, setPatientData]
-  );
+    setPatientData({
+      ...patientData,
+      addresses: [
+        ...oldAddresses,
+        {
+          // empty address
+          type: AddressType.Secondary,
+          line1: "",
+          line2: "",
+          city: "",
+          area: "",
+          country: "",
+          postalCode: "",
+        },
+      ],
+    });
+  };
 
-  const removeAddress = (index: number) => {
+  const removeSecondaryAddress = (index: number) => {
     if (patientData?.addresses) {
       const newAddresses = patientData.addresses.filter((_, i) => i !== index);
 
@@ -57,16 +53,6 @@ export const PatientFormAddresses = () => {
     setPatientData({ ...patientData, addresses: newAddresses });
   };
 
-  useEffect(() => {
-    if (
-      isLoading === false &&
-      (patientData?.addresses === undefined ||
-        patientData.addresses.length === 0)
-    ) {
-      addAddress(AddressType.Primary);
-    }
-  }, [isLoading, patientData, addAddress]);
-
   return patientData?.addresses ? (
     <Stack>
       {patientData.addresses.map((address, index) => {
@@ -89,7 +75,7 @@ export const PatientFormAddresses = () => {
                 </Typography>
                 {address.type === AddressType.Secondary ? (
                   <Button
-                    onClick={() => removeAddress(index)}
+                    onClick={() => removeSecondaryAddress(index)}
                     startIcon={<Clear />}
                   >
                     Remove
@@ -155,10 +141,7 @@ export const PatientFormAddresses = () => {
           </PatientFormSection>
         );
       })}
-      <Button
-        startIcon={<Add />}
-        onClick={() => addAddress(AddressType.Secondary)}
-      >
+      <Button startIcon={<Add />} onClick={() => addSecondaryAddress()}>
         Add Secondary Address
       </Button>
     </Stack>

@@ -58,7 +58,7 @@ export const PatientListPage = () => {
     },
     {
       field: "status",
-      headerName: "Intake Status",
+      headerName: "Status",
       flex: 1,
       renderCell: ({ row: { status } }) => {
         return <PatientStatusChip status={status} />;
@@ -82,7 +82,7 @@ export const PatientListPage = () => {
   ];
 
   return (
-    <Page isLoading={isLoading}>
+    <Page>
       <Stack>
         <Typography variant="h5" sx={{ m: "1rem 0.5rem" }}>
           Patient List
@@ -98,9 +98,10 @@ export const PatientListPage = () => {
 
       <Paper>
         <DataGrid
+          loading={isLoading}
           columns={columns}
           rows={data}
-          disableColumnFilter // Disable column filtering
+          disableColumnFilter
           disableColumnSelector
           sx={{
             "& .MuiDataGrid-container--top [role=row]": {
@@ -109,7 +110,6 @@ export const PatientListPage = () => {
             "& .MuiDataGrid-columnHeaderTitle": {
               fontWeight: "bold",
             },
-            // Remove the outlined selection
             "& .MuiDataGrid-cell:focus": {
               outline: "none",
               boxShadow: "none",
@@ -119,7 +119,12 @@ export const PatientListPage = () => {
               boxShadow: "none",
             },
           }}
-          // TODO: show no records
+          slotProps={{
+            loadingOverlay: {
+              variant: "skeleton",
+              noRowsVariant: "skeleton",
+            },
+          }}
         ></DataGrid>
       </Paper>
     </Page>

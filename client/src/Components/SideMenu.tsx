@@ -43,6 +43,11 @@ export const SideMenu = () => {
       >
         <ListItem sx={{ padding: 0 }}>
           <ListItemButton
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#ece3de",
+              },
+            }}
             selected={pathname.startsWith("/patients")}
             onClick={() => navigate("/patients")}
           >
