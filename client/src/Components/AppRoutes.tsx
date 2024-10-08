@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+
 import { PatientListPage } from "./Patient/Page/PatientListPage";
 import { PatientViewPage } from "./Patient/Page/PatientViewPage";
 import { PatientEditPage } from "./Patient/Page/PatientEditPage";
@@ -35,5 +36,6 @@ export const AppRoutes = () => (
       }
     />
     <Route path="patients/:id" element={<PatientViewPage />} />
+    <Route path="*" element={<Navigate to="/" replace />} />
   </Routes>
 );

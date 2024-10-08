@@ -17,6 +17,7 @@ import { openToast } from "../../../Common/toastSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../Common/store";
 import { Page } from "../../Page";
+import { PatientNotFound } from "../PatientNotFound";
 
 export const PatientViewPage = () => {
   const { id } = useParams();
@@ -133,7 +134,9 @@ export const PatientViewPage = () => {
             open={openDialog}
           />
         </Box>
-      ) : null}
+      ) : (
+        <PatientNotFound />
+      )}
     </Page>
   );
 };

@@ -6,6 +6,7 @@ import { openToast } from "../../../Common/toastSlice";
 import { usePatientFormContext } from "./../Form/PatientFormContext";
 import { PatientForm } from "./../Form/PatientForm";
 import { Page } from "../../Page";
+import { PatientNotFound } from "../PatientNotFound";
 
 export const PatientEditPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,7 +18,7 @@ export const PatientEditPage = () => {
     <Page
       isLoading={isLoading}
       title="Edit Patient Profile"
-      goBackRoute={patientData ? `/patients/${patientData.id}` : undefined}
+      goBackRoute={patientData ? `/patients/${patientData.id}` : "/patients"}
     >
       {patientData ? (
         <PatientForm
@@ -47,7 +48,9 @@ export const PatientEditPage = () => {
             }
           }}
         />
-      ) : null}
+      ) : (
+        <PatientNotFound />
+      )}
     </Page>
   );
 };
