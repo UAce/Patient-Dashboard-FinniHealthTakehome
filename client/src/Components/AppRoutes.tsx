@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { PatientListPage } from "./Patient/PatientListPage";
-import { PatientViewPage } from "./Patient/PatientViewPage";
-import { PatientEditPage } from "./Patient/PatientEditPage";
+import { PatientListPage } from "./Patient/Page/PatientListPage";
+import { PatientViewPage } from "./Patient/Page/PatientViewPage";
+import { PatientEditPage } from "./Patient/Page/PatientEditPage";
+import { PatientAddPage } from "./Patient/Page/PatientAddPage";
 import { PatientListContextProvider } from "./Patient/PatientListContext";
 import { PatientFormContextProvider } from "./Patient/Form/PatientFormContext";
-import { PatientAddPage } from "./Patient/PatientAddPage";
 
 export const AppRoutes = () => (
   <Routes>

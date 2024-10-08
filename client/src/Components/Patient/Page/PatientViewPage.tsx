@@ -9,21 +9,21 @@ import {
 import {
   useGetPatientByIdQuery,
   useRemovePatientMutation,
-} from "../../Common/apiSlice";
+} from "../../../Common/apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { ArrowBack, Delete, Edit } from "@mui/icons-material";
-import { KeyValue } from "../KeyValue";
-import { PatientViewSection } from "./PatientViewSection";
-import { PatientStatusChip } from "./PatientStatusChip";
+import { KeyValue } from "../../KeyValue";
+import { PatientViewSection } from "./../PatientViewSection";
+import { PatientStatusChip } from "./../PatientStatusChip";
 import dayjs from "dayjs";
-import { camelCaseToWords } from "../../utils";
-import { ConfirmDialog } from "../ConfirmDialog";
+import { camelCaseToWords } from "../../../utils";
+import { ConfirmDialog } from "../../ConfirmDialog";
 import { useState } from "react";
-import { openToast } from "../../Common/toastSlice";
+import { openToast } from "../../../Common/toastSlice";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../Common/store";
-import { Page } from "../Page";
+import { AppDispatch } from "../../../Common/store";
+import { Page } from "../../Page";
 
 export const PatientViewPage = () => {
   const { id } = useParams();

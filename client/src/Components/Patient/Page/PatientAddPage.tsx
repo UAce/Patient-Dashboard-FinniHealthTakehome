@@ -1,14 +1,14 @@
 import { Divider, IconButton, Stack, Typography } from "@mui/material";
-import { useAddPatientMutation } from "../../Common/apiSlice";
+import { useAddPatientMutation } from "../../../Common/apiSlice";
 import { useNavigate } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
 import { FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../Common/store";
-import { openToast } from "../../Common/toastSlice";
-import { PatientForm } from "./Form/PatientForm";
-import { Page } from "../Page";
-import { usePatientFormContext } from "./Form/PatientFormContext";
+import { AppDispatch } from "../../../Common/store";
+import { openToast } from "../../../Common/toastSlice";
+import { PatientForm } from "./../Form/PatientForm";
+import { Page } from "../../Page";
+import { usePatientFormContext } from "./../Form/PatientFormContext";
 
 export const PatientAddPage = () => {
   const navigate = useNavigate();

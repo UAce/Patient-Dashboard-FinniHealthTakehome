@@ -3,16 +3,16 @@ import {
   AddressType,
   Patient,
   useListPatientsQuery,
-} from "../../Common/apiSlice";
+} from "../../../Common/apiSlice";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { PatientStatusChip } from "./PatientStatusChip";
+import { PatientStatusChip } from "./../PatientStatusChip";
 import dayjs from "dayjs";
-import { PatientListToolbar } from "./PatientListToolbar";
+import { PatientListToolbar } from "./../PatientListToolbar";
 import { useMemo } from "react";
-import { usePatientListContext } from "./PatientListContext";
-import { Page } from "../Page";
+import { usePatientListContext } from "./../PatientListContext";
+import { Page } from "../../Page";
 
 export const PatientListPage = () => {
   const navigate = useNavigate();
