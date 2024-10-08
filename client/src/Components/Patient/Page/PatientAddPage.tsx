@@ -1,7 +1,5 @@
-import { Divider, IconButton, Stack, Typography } from "@mui/material";
 import { useAddPatientMutation } from "../../../Common/apiSlice";
 import { useNavigate } from "react-router-dom";
-import { ArrowBack } from "@mui/icons-material";
 import { FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../Common/store";
@@ -18,14 +16,7 @@ export const PatientAddPage = () => {
   const { patientData } = usePatientFormContext();
 
   return (
-    <Page>
-      <Stack flexDirection="row" sx={{ alignItems: "center" }} columnGap={1}>
-        <IconButton onClick={() => navigate(`/patients`)}>
-          <ArrowBack fontSize="large" />
-        </IconButton>
-        <Typography variant="h5">Add Patient Profile</Typography>
-      </Stack>
-      <Divider />
+    <Page title="Add Patient Profile" goBackRoute="/patients">
       <PatientForm
         action="Add"
         onSubmit={async (event: FormEvent<HTMLFormElement>) => {

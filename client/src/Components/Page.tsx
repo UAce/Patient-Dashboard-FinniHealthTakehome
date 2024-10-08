@@ -1,24 +1,31 @@
 import {
-  Box,
   Divider,
-  Skeleton,
+  IconButton,
   Stack,
   SxProps,
   Theme,
   Typography,
 } from "@mui/material";
-import { PropsWithChildren } from "react";
-import { PatientViewSection } from "./Patient/PatientViewSection";
+import { PropsWithChildren, ReactNode } from "react";
+import { PageSkeleton } from "./PageSkeleton";
+import { ArrowBack } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 interface PageProps {
   isLoading?: boolean;
+  title: string | ReactNode;
+  goBackRoute?: string;
   sx?: SxProps<Theme>;
 }
 export const Page = ({
   isLoading = false,
   sx,
+  title,
+  goBackRoute,
   children,
 }: PageProps & PropsWithChildren) => {
+  const navigate = useNavigate();
+
   return (
     <Stack
       sx={{
@@ -28,45 +35,30 @@ export const Page = ({
       }}
     >
       {isLoading ? (
-        <>
-          <Stack flexDirection="row" ml={3}>
-            <Typography variant="h5" width="300px">
-              <Skeleton />
-            </Typography>
-          </Stack>
-          <Divider />
-          <Box
-            sx={{
-              margin: "24px",
-              maxWidth: "900px",
-            }}
-          >
-            <Stack flexDirection="row">
-              <Stack flexDirection="row">
-                <Typography variant="h6" width="300px">
-                  <Skeleton />
-                </Typography>
-              </Stack>
-            </Stack>
-
-            <PatientViewSection title={<Skeleton />}>
-              <Skeleton width="100%" />
-              <Skeleton width="100%" />
-              <Skeleton width="100%" />
-              <Skeleton width="100%" />
-            </PatientViewSection>
-
-            <PatientViewSection title={<Skeleton />}>
-              <Skeleton width="100%" />
-              <Skeleton width="100%" />
-              <Skeleton width="100%" />
-              <Skeleton width="100%" />
-              <Skeleton width="100%" />
-            </PatientViewSection>
-          </Box>
-        </>
+        <PageSkeleton />
       ) : (
-        children
+        <>
+          {typeof title === "string" ? (
+            <>
+              <Stack
+                flexDirection="row"
+                sx={{ alignItems: "center", mt: "1rem" }}
+                columnGap={1}
+              >
+                {goBackRoute ? (
+                  <IconButton onClick={() => navigate(goBackRoute)}>
+                    <ArrowBack fontSize="large" />
+                  </IconButton>
+                ) : null}
+                <Typography variant="h5">{title}</Typography>
+              </Stack>
+              <Divider />
+            </>
+          ) : (
+            title
+          )}
+          {children}
+        </>
       )}
     </Stack>
   );

@@ -5,7 +5,7 @@ import {
   useListPatientsQuery,
 } from "../../../Common/apiSlice";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Visibility } from "@mui/icons-material";
+import { RecentActors, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { PatientStatusChip } from "./../PatientStatusChip";
 import dayjs from "dayjs";
@@ -82,20 +82,32 @@ export const PatientListPage = () => {
   ];
 
   return (
-    <Page sx={{ minHeight: "600px" }}>
-      <Stack>
-        <Typography variant="h5" sx={{ m: "1rem 0.5rem" }}>
-          Patient List
-        </Typography>
-
-        <PatientListToolbar
-          initialSearch={search}
-          onSearch={onSearch}
-          selectedStatuses={selectedStatuses}
-          onSelectedStatusesChange={onSelectedStatusesChange}
-          onClearStatuses={onClearFilters}
-        />
-      </Stack>
+    <Page
+      sx={{ minHeight: "600px" }}
+      title={
+        <Stack
+          flexDirection="row"
+          sx={{
+            alignItems: "center",
+            mt: "1rem",
+            ml: "1rem",
+            mb: "1rem",
+            height: "51px",
+          }}
+          columnGap={1}
+        >
+          <RecentActors fontSize="large" />
+          <Typography variant="h5">Patient List</Typography>
+        </Stack>
+      }
+    >
+      <PatientListToolbar
+        initialSearch={search}
+        onSearch={onSearch}
+        selectedStatuses={selectedStatuses}
+        onSelectedStatusesChange={onSelectedStatusesChange}
+        onClearStatuses={onClearFilters}
+      />
       <DataGrid
         loading={isLoading}
         columns={columns}
