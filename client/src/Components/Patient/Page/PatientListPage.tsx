@@ -1,4 +1,4 @@
-import { IconButton, Paper, Stack, Typography } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import {
   AddressType,
   Patient,
@@ -9,10 +9,10 @@ import { Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { PatientStatusChip } from "./../PatientStatusChip";
 import dayjs from "dayjs";
-import { PatientListToolbar } from "./../PatientListToolbar";
 import { useMemo } from "react";
 import { usePatientListContext } from "./../PatientListContext";
 import { Page } from "../../Page";
+import { PatientListToolbar } from "../PatientListToolbar";
 
 export const PatientListPage = () => {
   const navigate = useNavigate();
@@ -82,51 +82,55 @@ export const PatientListPage = () => {
   ];
 
   return (
-    <Page>
+    <Page sx={{ minHeight: "600px" }}>
       <Stack>
         <Typography variant="h5" sx={{ m: "1rem 0.5rem" }}>
           Patient List
         </Typography>
 
         <PatientListToolbar
+          initialSearch={search}
           onSearch={onSearch}
           selectedStatuses={selectedStatuses}
           onSelectedStatusesChange={onSelectedStatusesChange}
           onClearStatuses={onClearFilters}
         />
       </Stack>
-
-      <Paper>
-        <DataGrid
-          loading={isLoading}
-          columns={columns}
-          rows={data}
-          disableColumnFilter
-          disableColumnSelector
-          sx={{
-            "& .MuiDataGrid-container--top [role=row]": {
-              backgroundColor: "#ece3de",
-            },
-            "& .MuiDataGrid-columnHeaderTitle": {
-              fontWeight: "bold",
-            },
-            "& .MuiDataGrid-cell:focus": {
-              outline: "none",
-              boxShadow: "none",
-            },
-            "& .MuiDataGrid-columnHeader:focus": {
-              outline: "none",
-              boxShadow: "none",
-            },
-          }}
-          slotProps={{
-            loadingOverlay: {
-              variant: "skeleton",
-              noRowsVariant: "skeleton",
-            },
-          }}
-        ></DataGrid>
-      </Paper>
+      <DataGrid
+        loading={isLoading}
+        columns={columns}
+        rows={data}
+        disableColumnFilter
+        disableColumnSelector
+        sx={{
+          "& .MuiDataGrid-container--top [role=row]": {
+            backgroundColor: "#ece3de",
+          },
+          "& .MuiDataGrid-columnHeaderTitle": {
+            fontWeight: "bold",
+          },
+          "& .MuiDataGrid-cell:focus": {
+            outline: "none",
+            boxShadow: "none",
+          },
+          "& .MuiDataGrid-columnHeader:focus": {
+            outline: "none",
+            boxShadow: "none",
+          },
+        }}
+        slotProps={{
+          loadingOverlay: {
+            variant: "skeleton",
+            noRowsVariant: "skeleton",
+          },
+        }}
+        localeText={{
+          noRowsLabel:
+            filters.search === "" && filters.status.length === 0
+              ? "No patients yet"
+              : "No patients found",
+        }}
+      ></DataGrid>
     </Page>
   );
 };

@@ -1,9 +1,10 @@
 import {
   Box,
   Divider,
-  Paper,
   Skeleton,
   Stack,
+  SxProps,
+  Theme,
   Typography,
 } from "@mui/material";
 import { PropsWithChildren } from "react";
@@ -11,13 +12,21 @@ import { PatientViewSection } from "./Patient/PatientViewSection";
 
 interface PageProps {
   isLoading?: boolean;
+  sx?: SxProps<Theme>;
 }
 export const Page = ({
   isLoading = false,
+  sx,
   children,
 }: PageProps & PropsWithChildren) => {
   return (
-    <Paper sx={{ margin: "2rem 1rem" }}>
+    <Stack
+      sx={{
+        margin: "2rem 1rem",
+        backgroundColor: "#fff",
+        ...sx,
+      }}
+    >
       {isLoading ? (
         <>
           <Stack flexDirection="row" ml={3}>
@@ -59,6 +68,6 @@ export const Page = ({
       ) : (
         children
       )}
-    </Paper>
+    </Stack>
   );
 };

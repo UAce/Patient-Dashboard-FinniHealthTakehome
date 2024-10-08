@@ -20,6 +20,7 @@ import { PatientStatusChip } from "./PatientStatusChip";
 import { useNavigate } from "react-router-dom";
 
 interface PatientListToolbarProps {
+  initialSearch?: string;
   onSearch: (searchTerm: string) => void;
   selectedStatuses: IntakeStatus[];
   onSelectedStatusesChange: (nextStatuses: IntakeStatus[]) => void;
@@ -27,6 +28,7 @@ interface PatientListToolbarProps {
 }
 
 export const PatientListToolbar = ({
+  initialSearch,
   onSearch,
   selectedStatuses,
   onSelectedStatusesChange,
@@ -35,10 +37,10 @@ export const PatientListToolbar = ({
   const navigate = useNavigate();
 
   // search
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(initialSearch || "");
   const handleSearch = (_search: string) => {
     setSearch(_search);
-    onSearch && onSearch(_search);
+    onSearch(_search);
   };
 
   // status filter

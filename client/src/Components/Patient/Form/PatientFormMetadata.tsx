@@ -57,6 +57,7 @@ export const PatientFormMetadata = () => {
                     handleMetadataChange(index, "key", e.target.value);
                   }}
                   required
+                  sx={{ flex: 1 }}
                 />
                 <TextField
                   variant="outlined"
@@ -66,6 +67,7 @@ export const PatientFormMetadata = () => {
                     handleMetadataChange(index, "value", e.target.value)
                   }
                   required
+                  sx={{ flex: 1 }}
                 />
                 <Button
                   onClick={() => removeAdditionalInfo(index)}
