@@ -10,7 +10,7 @@ import { PatientNotFound } from "../PatientNotFound";
 
 export const PatientEditPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { isLoading, patientData } = usePatientFormContext();
+  const { isLoading, patientData, error } = usePatientFormContext();
 
   const [editPatientMutation] = useEditPatientMutation();
 
@@ -19,6 +19,7 @@ export const PatientEditPage = () => {
       isLoading={isLoading}
       title="Edit Patient Profile"
       goBackRoute={patientData ? `/patients/${patientData.id}` : "/patients"}
+      error={error}
     >
       {patientData ? (
         <PatientForm

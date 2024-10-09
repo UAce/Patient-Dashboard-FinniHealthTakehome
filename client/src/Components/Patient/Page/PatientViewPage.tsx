@@ -25,7 +25,9 @@ export const PatientViewPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [openDialog, setOpenDialog] = useState(false);
 
-  const { isLoading, data } = useGetPatientByIdQuery(id ? id : skipToken);
+  const { isLoading, data, error } = useGetPatientByIdQuery(
+    id ? id : skipToken
+  );
 
   const [removePatientMutation] = useRemovePatientMutation();
   const handleDeletePatient = async (id: string) => {
@@ -52,7 +54,12 @@ export const PatientViewPage = () => {
   };
 
   return (
-    <Page isLoading={isLoading} title="Patient Profile" goBackRoute="/patients">
+    <Page
+      isLoading={isLoading}
+      title="Patient Profile"
+      goBackRoute="/patients"
+      error={error}
+    >
       {data ? (
         <Box
           sx={{

@@ -1,4 +1,5 @@
 import {
+  Alert,
   Divider,
   IconButton,
   Stack,
@@ -10,16 +11,20 @@ import { PropsWithChildren, ReactNode } from "react";
 import { PageSkeleton } from "./PageSkeleton";
 import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { SerializedError } from "@reduxjs/toolkit";
 
 interface PageProps {
   isLoading?: boolean;
   title: string | ReactNode;
   goBackRoute?: string;
   sx?: SxProps<Theme>;
+  error?: FetchBaseQueryError | SerializedError;
 }
 export const Page = ({
   isLoading = false,
   sx,
+  error,
   title,
   goBackRoute,
   children,
@@ -57,7 +62,13 @@ export const Page = ({
           ) : (
             title
           )}
-          {children}
+          {error ? (
+            <Alert severity="error">
+              Oops, something went wrong. Please try again.
+            </Alert>
+          ) : (
+            children
+          )}
         </>
       )}
     </Stack>

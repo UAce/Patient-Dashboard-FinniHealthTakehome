@@ -31,7 +31,7 @@ export const PatientListPage = () => {
     }),
     [search, selectedStatuses]
   );
-  const { isLoading, data } = useListPatientsQuery(filters);
+  const { isLoading, data, error } = useListPatientsQuery(filters);
 
   const columns: GridColDef<Patient>[] = [
     { field: "firstName", headerName: "First Name", flex: 1 },
@@ -100,6 +100,7 @@ export const PatientListPage = () => {
           <Typography variant="h5">Patient List</Typography>
         </Stack>
       }
+      error={error}
     >
       <PatientListToolbar
         initialSearch={search}
