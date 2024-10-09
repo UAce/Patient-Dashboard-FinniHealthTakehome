@@ -2,8 +2,9 @@
 
 Take-home project for Finni Health
 
-Planning and exploration on Notion:
-https://wheat-dragon-4fd.notion.site/Finni-Health-Takehome-Exploration-115383ad2ad18065b4eec69839faed12
+<ins>Built with</ins>: **Firebase Authentication, React, Material-UI, Express and MongoDB**
+
+See [Planning and Exploration](https://wheat-dragon-4fd.notion.site/Finni-Health-Takehome-Exploration-115383ad2ad18065b4eec69839faed12) document on Notion
 
 ## Run Database
 
