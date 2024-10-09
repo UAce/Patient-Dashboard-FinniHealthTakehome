@@ -2,19 +2,27 @@ import { Request, Response } from "express";
 import Logger from "../common/logger";
 import PatientModel from "../models/patientModel";
 import { Types } from "mongoose";
+import { assertValue } from "../common/assert";
 
 const logger = Logger.getInstance({ name: "GetPatient" });
 
 export const getPatientHandler = async (
-  req: Request,
+  req: Request & { user?: { providerId: string } },
   res: Response
 ): Promise<void> => {
   const params = req.params;
   logger.info(params, "Geting patient");
 
   try {
+    const providerId = assertValue(
+      req.user?.providerId,
+      "Missing logged providerId"
+    );
     const patient = Types.ObjectId.isValid(params.id)
-      ? await PatientModel.findById(params.id)
+      ? await PatientModel.findOne({
+          _id: params.id,
+          providerId,
+        })
       : undefined;
 
     if (patient) {

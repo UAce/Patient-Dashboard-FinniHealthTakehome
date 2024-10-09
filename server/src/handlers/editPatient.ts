@@ -5,7 +5,7 @@ import PatientModel, {
   AddressType,
   IntakeStatus,
 } from "../models/patientModel";
-import { assertSchema } from "../common/assert";
+import { assertSchema, assertValue } from "../common/assert";
 import { Types } from "mongoose";
 
 const logger = Logger.getInstance({ name: "EditPatient" });
@@ -44,7 +44,7 @@ const EditPatientRequestSchema = Joi.object({
 });
 
 export const editPatientHandler = async (
-  req: Request,
+  req: Request & { user?: { providerId: string } },
   res: Response
 ): Promise<void> => {
   const body = req.body;
@@ -52,11 +52,15 @@ export const editPatientHandler = async (
   logger.info("Editing patient");
 
   try {
+    const providerId = assertValue(
+      req.user?.providerId,
+      "Missing logged providerId"
+    );
     assertSchema(EditPatientRequestSchema, body);
 
     const editedPatient = Types.ObjectId.isValid(params.id)
-      ? await PatientModel.findByIdAndUpdate(
-          params.id,
+      ? await PatientModel.findOneAndUpdate(
+          { _id: params.id, providerId },
           body as any // dirty hack cuz mvp
         )
       : undefined;

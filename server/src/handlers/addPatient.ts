@@ -5,7 +5,8 @@ import PatientModel, {
   IntakeStatus,
   AddressType,
 } from "../models/patientModel";
-import { assertSchema } from "../common/assert";
+import { assertSchema, assertValue } from "../common/assert";
+import { merge } from "lodash";
 
 const logger = Logger.getInstance({ name: "AddPatient" });
 
@@ -43,16 +44,20 @@ const AddPatientRequestSchema = Joi.object({
 }).required();
 
 export const addPatientHandler = async (
-  req: Request,
+  req: Request & { user?: { providerId: string } },
   res: Response
 ): Promise<void> => {
   const body = req.body;
   logger.info("Adding patient");
 
   try {
+    const providerId = assertValue(
+      req.user?.providerId,
+      "Missing logged providerId"
+    );
     assertSchema(AddPatientRequestSchema, body);
 
-    const newPatient = await PatientModel.create(body);
+    const newPatient = await PatientModel.create(merge(body, { providerId }));
 
     res.status(201).send(newPatient);
   } catch (error: any) {

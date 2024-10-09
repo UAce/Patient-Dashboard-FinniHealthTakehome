@@ -5,17 +5,23 @@ import PatientModel, {
   IntakeStatus,
 } from "../models/patientModel";
 import { isArray } from "lodash";
+import { assertValue } from "../common/assert";
 
 const logger = Logger.getInstance({ name: "ListPatients" });
 
 export const listPatientsHandler = async (
-  req: Request,
+  req: Request & { user?: { providerId: string } },
   res: Response
 ): Promise<void> => {
   const query = req.query;
-  logger.info(query, "Listing patients");
+  logger.info({ query }, "Listing patients");
 
   try {
+    const providerId = assertValue(
+      req.user?.providerId,
+      "Missing logged providerId"
+    );
+
     let searchFilter = {};
 
     if (query.search) {
@@ -55,9 +61,10 @@ export const listPatientsHandler = async (
     const patients = await PatientModel.aggregate([
       {
         $match: {
+          providerId,
+          deletedAt: null,
           ...searchFilter,
           ...statusFilter,
-          deletedAt: null,
         },
       },
       {

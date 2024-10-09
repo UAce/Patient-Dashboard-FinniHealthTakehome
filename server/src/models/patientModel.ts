@@ -50,6 +50,11 @@ const patientSchema = new Schema(
     addresses: [addressSchema], // Array of addresses
     deletedAt: { type: Date, default: null },
     metadata: [metadataSchema], // Arbitrary fields
+    providerId: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   {
     // Enables createdAt, updatedAt

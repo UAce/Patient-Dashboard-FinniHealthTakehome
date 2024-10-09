@@ -8,9 +8,20 @@ import { assertValue } from "./common/assert";
 import morgan from "morgan";
 import Logger from "./common/logger";
 import PatientRouter from "./router/patientRouter";
+import admin from "firebase-admin";
+import path from "path";
+import { readFileSync } from "fs";
+import { verifyTokenMiddleware } from "./common/verifyToken.middleware";
 
 dotenv.config({
   path: [".env.local", ".env"],
+});
+
+// Initialize Firebase Admin SDK
+const serviceAccountPath = path.join(process.cwd(), "serviceAccountKey.json");
+const serviceAccount = JSON.parse(readFileSync(serviceAccountPath, "utf8"));
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
 });
 
 const logger = Logger.getInstance({ name: "Index" });
@@ -26,6 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
+app.use(verifyTokenMiddleware);
 
 /**
  * Endpoints
@@ -50,7 +62,7 @@ mongoose
 
     // Seed the database
     // logger.info("Seeding database...");
-    // await seedDatabase(50);
+    // await seedDatabase(50, process.env.PROVIDER_ID);
   })
   .catch((error) => {
     logger.error(error, "MongoDB connection error:");

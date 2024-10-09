@@ -5,14 +5,15 @@ import PatientModel, {
 } from "../models/patientModel";
 import { faker } from "@faker-js/faker";
 
-export const seedDatabase = async (count: number) => {
+export const seedDatabase = async (count: number, providerId: string) => {
   const patients = Array(count)
     .fill(0)
-    .map(() => generatePatient());
+    .map(() => generatePatient(providerId));
   await PatientModel.insertMany(patients);
 };
 
-const generatePatient = () => ({
+const generatePatient = (providerId: string) => ({
+  providerId,
   firstName: faker.person.firstName(),
   middleName: Math.random() > 0.5 ? faker.person.middleName() : "",
   lastName: faker.person.lastName(),
