@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../Common/store";
 import { openToast } from "../../../Common/toastSlice";
 import { PatientForm } from "./../Form/PatientForm";
-import { Page } from "../../Page";
+import { Page } from "../../Layout/Page";
 import { usePatientFormContext } from "./../Form/PatientFormContext";
 
 export const PatientAddPage = () => {

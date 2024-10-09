@@ -2,7 +2,7 @@ import { Box, Stack, SxProps, Theme } from "@mui/material";
 import { PropsWithChildren } from "react";
 import { SideMenu } from "./SideMenu";
 import { TopAppBar } from "./TopAppBar";
-import { AppColor } from "../Common/constants";
+import { AppColor } from "../../Common/constants";
 
 type LayoutStyles = {
   root: SxProps<Theme>;

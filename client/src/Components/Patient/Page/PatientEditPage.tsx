@@ -5,7 +5,7 @@ import { AppDispatch } from "../../../Common/store";
 import { openToast } from "../../../Common/toastSlice";
 import { usePatientFormContext } from "./../Form/PatientFormContext";
 import { PatientForm } from "./../Form/PatientForm";
-import { Page } from "../../Page";
+import { Page } from "../../Layout/Page";
 import { PatientNotFound } from "../PatientNotFound";
 
 export const PatientEditPage = () => {

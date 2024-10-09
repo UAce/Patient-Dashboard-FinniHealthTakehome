@@ -11,7 +11,7 @@ import { PatientStatusChip } from "./../PatientStatusChip";
 import dayjs from "dayjs";
 import { useMemo } from "react";
 import { usePatientListContext } from "./../PatientListContext";
-import { Page } from "../../Page";
+import { Page } from "../../Layout/Page";
 import { PatientListToolbar } from "../PatientListToolbar";
 
 export const PatientListPage = () => {

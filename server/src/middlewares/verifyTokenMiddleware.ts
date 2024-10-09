@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import admin from "firebase-admin";
-import Logger from "./logger";
+import Logger from "../common/logger";
 
 const logger = Logger.getInstance({ name: "VerifyToken" });
 

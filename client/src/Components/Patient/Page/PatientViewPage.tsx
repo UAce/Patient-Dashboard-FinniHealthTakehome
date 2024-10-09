@@ -10,13 +10,13 @@ import { KeyValue } from "../../KeyValue";
 import { PatientViewSection } from "./../PatientViewSection";
 import { PatientStatusChip } from "./../PatientStatusChip";
 import dayjs from "dayjs";
-import { camelCaseToWords } from "../../../utils";
+import { camelCaseToWords } from "../../../Common/utils";
 import { ConfirmDialog } from "../../ConfirmDialog";
 import { useState } from "react";
 import { openToast } from "../../../Common/toastSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../Common/store";
-import { Page } from "../../Page";
+import { Page } from "../../Layout/Page";
 import { PatientNotFound } from "../PatientNotFound";
 
 export const PatientViewPage = () => {

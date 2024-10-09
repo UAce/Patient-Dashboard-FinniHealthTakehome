@@ -1,5 +1,5 @@
 import { Stack, Paper, CircularProgress } from "@mui/material";
-import { AppColor } from "../Common/constants";
+import { AppColor } from "../../Common/constants";
 
 export const PageLoading = () => {
   return (

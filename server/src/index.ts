@@ -11,7 +11,7 @@ import PatientRouter from "./router/patientRouter";
 import admin from "firebase-admin";
 import path from "path";
 import { readFileSync } from "fs";
-import { verifyTokenMiddleware } from "./common/verifyToken.middleware";
+import { verifyTokenMiddleware } from "./middlewares/verifyTokenMiddleware";
 
 dotenv.config({
   path: [".env.local", ".env"],

@@ -2,8 +2,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import { LoginPage } from "./Components/Authentication/LoginPage";
 import { useAuthContext } from "./Components/Authentication/AuthContext";
-import { AppLayout } from "./Components/AppLayout";
-import { PageLoading } from "./Components/PageLoading";
+import { AppLayout } from "./Components/Layout/AppLayout";
+import { PageLoading } from "./Components/Layout/PageLoading";
 import { PatientRoutes } from "./Components/PatientRoutes";
 
 function App() {

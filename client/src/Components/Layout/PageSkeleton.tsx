@@ -1,5 +1,5 @@
 import { Stack, Typography, Skeleton, Divider, Box } from "@mui/material";
-import { PatientViewSection } from "./Patient/PatientViewSection";
+import { PatientViewSection } from "../Patient/PatientViewSection";
 
 export const PageSkeleton = () => {
   return (

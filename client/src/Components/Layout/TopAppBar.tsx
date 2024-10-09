@@ -7,16 +7,16 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import { Logout, Spa } from "@mui/icons-material";
 import { ListItemIcon, Menu, MenuItem, Stack } from "@mui/material";
-import { AppColor } from "../Common/constants";
+import { AppColor } from "../../Common/constants";
 import { useState } from "react";
-import { openToast } from "../Common/toastSlice";
+import { openToast } from "../../Common/toastSlice";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../Common/store";
+import { AppDispatch } from "../../Common/store";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth } from "./Authentication/FirebaseApp";
-import { useAuthContext } from "./Authentication/AuthContext";
-import { stringAvatar } from "../utils";
+import { auth } from "../Authentication/FirebaseApp";
+import { useAuthContext } from "../Authentication/AuthContext";
+import { stringAvatar } from "../../Common/utils";
 
 export const TopAppBar = () => {
   const dispatch = useDispatch<AppDispatch>();
