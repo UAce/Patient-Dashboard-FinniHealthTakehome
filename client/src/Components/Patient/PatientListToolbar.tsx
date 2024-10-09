@@ -118,6 +118,8 @@ export const PatientListToolbar = ({
               endIcon={<KeyboardArrowDown />}
               sx={{
                 borderRadius: 3,
+                borderColor: "grey.500",
+                color: "grey.700",
                 height: "100%",
               }}
             >

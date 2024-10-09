@@ -10,7 +10,7 @@ export const PatientFormStatus = () => {
       <InputLabel id="status-dropdown-label">Status</InputLabel>
       <Select
         labelId="status-dropdown-label"
-        defaultValue={patientData?.status}
+        defaultValue={IntakeStatus.Inquiry}
         onChange={(e) => {
           setPatientData({
             ...patientData,

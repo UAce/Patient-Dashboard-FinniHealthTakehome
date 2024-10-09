@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { auth } from "../Components/Authentication/FirebaseApp";
 
 export enum IntakeStatus {
   Inquiry = "Inquiry",
@@ -48,7 +49,18 @@ export const updatableFields = [
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000/api" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:4000/api",
+    async prepareHeaders(headers) {
+      const user = auth.currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
+
   tagTypes: ["Patient"],
   endpoints: (builder) => ({
     // Query

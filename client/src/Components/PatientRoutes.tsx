@@ -7,9 +7,8 @@ import { PatientAddPage } from "./Patient/Page/PatientAddPage";
 import { PatientListContextProvider } from "./Patient/PatientListContext";
 import { PatientFormContextProvider } from "./Patient/Form/PatientFormContext";
 
-export const AppRoutes = () => (
+export const PatientRoutes = () => (
   <Routes>
-    <Route path="/" element={<Navigate to="/patients" />} />
     <Route
       index
       path="patients"
@@ -36,6 +35,6 @@ export const AppRoutes = () => (
       }
     />
     <Route path="patients/:id" element={<PatientViewPage />} />
-    <Route path="*" element={<Navigate to="/" replace />} />
+    <Route path="*" element={<Navigate to="/patients" replace />} />
   </Routes>
 );
