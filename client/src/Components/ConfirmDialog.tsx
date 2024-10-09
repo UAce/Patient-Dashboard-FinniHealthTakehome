@@ -14,6 +14,7 @@ export type ConfirmDialogProps = Pick<
   DialogProps,
   "maxWidth" | "fullWidth" | "component"
 > & {
+  cancelText?: string;
   confirmText?: string;
   title: ReactNode;
   message?: ReactNode;
@@ -23,6 +24,7 @@ export type ConfirmDialogProps = Pick<
 };
 
 export const ConfirmDialog = ({
+  cancelText,
   confirmText,
   open,
   message,
@@ -56,12 +58,12 @@ export const ConfirmDialog = ({
         <DialogContentText component="div">{message}</DialogContentText>
       </DialogContent>
       <DialogActions disableSpacing>
-        <Button onClick={() => onCancel()} autoFocus size="medium">
-          Cancel
+        <Button onClick={onCancel} autoFocus size="medium">
+          {cancelText || "Cancel"}
         </Button>
         <Button
           variant="contained"
-          onClick={() => onAccept()}
+          onClick={onAccept}
           color="error"
           autoFocus
           size="medium"

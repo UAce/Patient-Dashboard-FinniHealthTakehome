@@ -1,11 +1,13 @@
 import { Box, Stack, Button } from "@mui/material";
-import { BaseSyntheticEvent, FormEvent } from "react";
+import { BaseSyntheticEvent, FormEvent, useState } from "react";
 import { PatientFormPersonalInformation } from "./PatientFormPersonalInformation";
 import { PatientFormAddresses } from "./PatientFormAddresses";
 import { PatientFormMetadata } from "./PatientFormMetadata";
 import { usePatientFormContext } from "./PatientFormContext";
 import { AppColor } from "../../../Common/constants";
 import { PatientFormStatus } from "./PatientFormStatus";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ConfirmDialog } from "../../ConfirmDialog";
 
 interface PatientFormProps {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -13,7 +15,20 @@ interface PatientFormProps {
 }
 
 export const PatientForm = ({ onSubmit, action }: PatientFormProps) => {
-  const { patientData, setPatientData } = usePatientFormContext();
+  const { patientData, setPatientData, isTouched } = usePatientFormContext();
+  const [openDialog, setOpenDialog] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleCancel = () => {
+    // Remove the last part of the location path name
+    const currentPath = location.pathname;
+    const segments = currentPath.split("/");
+    segments.pop();
+    const newPath = segments.join("/");
+
+    navigate(newPath);
+  };
 
   return (
     <form
@@ -41,22 +56,45 @@ export const PatientForm = ({ onSubmit, action }: PatientFormProps) => {
         <PatientFormAddresses />
         <PatientFormMetadata />
         <Stack
-          spacing={2}
+          columnGap={1}
           mt={2}
-          sx={{ maxWidth: "100%" }}
-          flexDirection="row-reverse"
+          sx={{ maxWidth: "100%", justifyContent: "flex-end" }}
+          flexDirection="row"
         >
+          <Button
+            variant="outlined"
+            onClick={() => {
+              console.log({
+                isTouched,
+              });
+              if (isTouched) {
+                setOpenDialog(true);
+              } else {
+                handleCancel();
+              }
+            }}
+          >
+            Cancel
+          </Button>
           <Button
             variant="contained"
             type="submit"
             sx={{
               backgroundColor: AppColor.Primary,
-              width: "100px",
               color: "white",
             }}
           >
             {action}
           </Button>
+          <ConfirmDialog
+            cancelText="Close"
+            confirmText="Cancel"
+            message="You have some unsaved changes. Are you sure you want to cancel?"
+            title="Cancel"
+            onAccept={handleCancel}
+            onCancel={() => setOpenDialog(false)}
+            open={openDialog}
+          />
         </Stack>
       </Box>
     </form>

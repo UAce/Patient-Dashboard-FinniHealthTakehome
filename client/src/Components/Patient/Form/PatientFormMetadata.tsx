@@ -51,7 +51,7 @@ export const PatientFormMetadata = () => {
               <Stack flexDirection="row" gap={1} key={`metadata-${index}`}>
                 <TextField
                   variant="outlined"
-                  label="key"
+                  label="Label"
                   defaultValue={key}
                   onChange={(e) => {
                     handleMetadataChange(index, "key", e.target.value);
@@ -61,7 +61,7 @@ export const PatientFormMetadata = () => {
                 />
                 <TextField
                   variant="outlined"
-                  label="value"
+                  label="Description"
                   defaultValue={value}
                   onChange={(e) =>
                     handleMetadataChange(index, "value", e.target.value)

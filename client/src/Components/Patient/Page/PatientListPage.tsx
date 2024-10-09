@@ -39,9 +39,11 @@ export const PatientListPage = () => {
     {
       field: "dateOfBirth",
       headerName: "Date of Birth",
+      type: "date",
       flex: 1,
-      valueGetter: (dob) => {
-        return dayjs(dob).format("LL");
+      valueGetter: (value) => dayjs(value).toDate(),
+      renderCell: ({ row }) => {
+        return dayjs(row.dateOfBirth).format("LL");
       },
     },
     {

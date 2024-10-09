@@ -2,6 +2,8 @@ import {
   createContext,
   Dispatch,
   PropsWithChildren,
+  SetStateAction,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -20,6 +22,7 @@ import { SerializedError } from "@reduxjs/toolkit";
 export type PatientFormContextValue = {
   error?: FetchBaseQueryError | SerializedError;
   isLoading: boolean;
+  isTouched: boolean;
   patientData: Partial<Patient> | null;
   setPatientData: Dispatch<React.SetStateAction<Partial<Patient> | null>>;
 };
@@ -43,6 +46,7 @@ export const PatientFormContextProvider = ({ children }: PropsWithChildren) => {
   const { isLoading, data, error } = useGetPatientByIdQuery(
     id ? id : skipToken
   );
+  const [isTouched, setIsTouched] = useState(false);
   const [patientData, setPatientData] = useState<Partial<Patient> | null>(
     isLoading
       ? null
@@ -62,6 +66,14 @@ export const PatientFormContextProvider = ({ children }: PropsWithChildren) => {
         }
   );
 
+  const wrappedSetPatientData = useCallback(
+    (data: SetStateAction<Partial<Patient> | null>) => {
+      setIsTouched(true);
+      setPatientData(data);
+    },
+    []
+  );
+
   useEffect(() => {
     if (data) {
       setPatientData(data);
@@ -71,11 +83,12 @@ export const PatientFormContextProvider = ({ children }: PropsWithChildren) => {
   const value = useMemo(
     () => ({
       error,
+      isTouched,
       isLoading,
       patientData,
-      setPatientData,
+      setPatientData: wrappedSetPatientData,
     }),
-    [error, isLoading, patientData, setPatientData]
+    [error, isTouched, isLoading, patientData, wrappedSetPatientData]
   );
 
   return (

@@ -26,7 +26,7 @@ export const Toasts = () => {
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       open={toast.open}
       onClose={onClose}
-      autoHideDuration={toast.severity === "success" ? 5000 : null}
+      autoHideDuration={toast.severity === "success" ? 3000 : null}
       TransitionComponent={SlideTransition}
       sx={{
         "&.MuiSnackbar-root": { top: "80px", right: "20px" },

@@ -17,7 +17,7 @@ const generatePatient = (providerId: string) => ({
   firstName: faker.person.firstName(),
   middleName: Math.random() > 0.5 ? faker.person.middleName() : "",
   lastName: faker.person.lastName(),
-  dateOfBirth: new Date(),
+  dateOfBirth: faker.date.birthdate(),
   status: sample(Object.values(IntakeStatus)),
   addresses: [
     {

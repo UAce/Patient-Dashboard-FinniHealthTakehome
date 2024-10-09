@@ -62,7 +62,7 @@ mongoose
 
     // Seed the database
     // logger.info("Seeding database...");
-    // await seedDatabase(50, process.env.PROVIDER_ID);
+    // await seedDatabase(100, process.env.PROVIDER_ID!);
   })
   .catch((error) => {
     logger.error(error, "MongoDB connection error:");
