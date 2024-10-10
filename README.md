@@ -2,7 +2,7 @@
 
 Take-home project for Finni Health
 
-<ins>Built with</ins>: **Firebase Authentication, React, Material-UI, Express and MongoDB**
+<ins>Built with</ins>: **Firebase Authentication, React (TypeScript), RTK-Query, Material-UI, Express (TypeScript), MongoDB**
 
 See [Planning and Exploration](https://wheat-dragon-4fd.notion.site/Finni-Health-Takehome-Exploration-115383ad2ad18065b4eec69839faed12) document on Notion
 
