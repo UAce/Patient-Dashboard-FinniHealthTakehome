@@ -37,7 +37,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
-app.use(verifyTokenMiddleware);
 
 /**
  * Endpoints
@@ -46,7 +45,7 @@ app.get("/health", (_, res) => {
   res.send("Server is running!");
 });
 
-app.use("/api/patients", PatientRouter);
+app.use("/api/patients", verifyTokenMiddleware, PatientRouter);
 
 /**
  * Connect to DB and start Server

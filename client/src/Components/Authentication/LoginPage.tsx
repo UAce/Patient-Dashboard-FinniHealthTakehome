@@ -14,7 +14,7 @@ export const LoginPage = () => {
       firebaseui.auth.AuthUI.getInstance() ?? new firebaseui.auth.AuthUI(auth);
 
     ui.start("#firebaseui-auth-container", {
-      signInSuccessUrl: "/patients",
+      signInSuccessUrl: "/",
       signInOptions: [
         {
           provider: EmailAuthProvider.PROVIDER_ID,
