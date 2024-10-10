@@ -23,6 +23,7 @@ export type PatientFormContextValue = {
   error?: FetchBaseQueryError | SerializedError;
   isLoading: boolean;
   isTouched: boolean;
+  setIsTouched: Dispatch<React.SetStateAction<boolean>>;
   patientData: Partial<Patient> | null;
   setPatientData: Dispatch<React.SetStateAction<Partial<Patient> | null>>;
 };
@@ -84,11 +85,19 @@ export const PatientFormContextProvider = ({ children }: PropsWithChildren) => {
     () => ({
       error,
       isTouched,
+      setIsTouched,
       isLoading,
       patientData,
       setPatientData: wrappedSetPatientData,
     }),
-    [error, isTouched, isLoading, patientData, wrappedSetPatientData]
+    [
+      error,
+      isTouched,
+      setIsTouched,
+      isLoading,
+      patientData,
+      wrappedSetPatientData,
+    ]
   );
 
   return (

@@ -15,7 +15,8 @@ interface PatientFormProps {
 }
 
 export const PatientForm = ({ onSubmit, action }: PatientFormProps) => {
-  const { patientData, setPatientData, isTouched } = usePatientFormContext();
+  const { patientData, setPatientData, isTouched, setIsTouched } =
+    usePatientFormContext();
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,7 +44,10 @@ export const PatientForm = ({ onSubmit, action }: PatientFormProps) => {
           setPatientData(newPatientData);
         }
       }}
-      onSubmit={onSubmit}
+      onSubmit={(e) => {
+        onSubmit(e);
+        setIsTouched(false);
+      }}
     >
       <Box
         sx={{
