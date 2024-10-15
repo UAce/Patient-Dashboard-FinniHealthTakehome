@@ -7,6 +7,7 @@ import { usePatientFormContext } from "./../Form/PatientFormContext";
 import { PatientForm } from "./../Form/PatientForm";
 import { Page } from "../../Layout/Page";
 import { PatientNotFound } from "../PatientNotFound";
+import { pick } from "lodash";
 
 export const PatientEditPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -30,7 +31,15 @@ export const PatientEditPage = () => {
             try {
               await editPatientMutation({
                 id: patientData.id,
-                ...patientData,
+                ...pick(patientData, [
+                  "status",
+                  "firstName",
+                  "middleName",
+                  "lastName",
+                  "dateOfBirth",
+                  "addresses",
+                  "metadata",
+                ]),
               }).unwrap();
               dispatch(
                 openToast({
