@@ -4,13 +4,15 @@ Take-home project for Finni Health
 
 <ins>Built with</ins>: **Firebase Authentication, React (TypeScript), RTK-Query, Material-UI, Express (TypeScript), MongoDB**
 
-See [Planning and Exploration](https://wheat-dragon-4fd.notion.site/Finni-Health-Takehome-Exploration-115383ad2ad18065b4eec69839faed12) document on Notion
+[<kbd> <br> See Planning and Exploration Document <br> </kbd>][Link]
+
+[Link]: https://wheat-dragon-4fd.notion.site/Finni-Health-Takehome-Exploration-115383ad2ad18065b4eec69839faed12
 
 ## Demo
 
 [![Demo]][DemoLink]
 
-[DemoLink]: https://finni-health-a64c1.web.app 'Try out demo'
+[DemoLink]: https://finni-health-a64c1.web.app
 
 [Demo]: https://img.shields.io/badge/Try_Out_Demo-EF742E?style=for-the-badge
 
