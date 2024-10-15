@@ -6,27 +6,14 @@ Take-home project for Finni Health
 
 See [Planning and Exploration](https://wheat-dragon-4fd.notion.site/Finni-Health-Takehome-Exploration-115383ad2ad18065b4eec69839faed12) document on Notion
 
-## Run Database
-
-```bash
-docker-compose -f server/docker-compose.yml up -d
-```
-
-## Run Server
-
-```bash
-cd server && npm run dev
-```
-
-## Run Client
-
-```bash
-cd client && npm start
-```
-
 ## Demo
 
-Try out demo: https://finni-health-a64c1.web.app
+[![Demo]][DemoLink]
+
+[DemoLink]: https://finni-health-a64c1.web.app 'Try out demo'
+
+[Demo]: https://img.shields.io/badge/Try_Out_Demo-EF742E?style=for-the-badge
+
 
 https://github.com/user-attachments/assets/f0e7ee17-aabd-435f-94ff-73a4aca71495
 
@@ -41,3 +28,24 @@ https://github.com/user-attachments/assets/f0e7ee17-aabd-435f-94ff-73a4aca71495
 | Edit Patient Profile   | <img src=https://github.com/user-attachments/assets/d740d0ab-c7aa-4e0a-91f0-9e85c9a9f3b3 width=400px> |
 | Delete Patient Profile | <img src=https://github.com/user-attachments/assets/8e7e287a-9bd3-4a55-afd3-7d50e1a04c67 width=400px> |
 | Invalid Patient        | <img src=https://github.com/user-attachments/assets/ef06a607-f4ac-4e32-890a-2fbf9489ab69 width=400px> |
+
+
+
+## Run Project
+Start Database
+
+```bash
+docker-compose -f server/docker-compose.yml up -d
+```
+
+Start Server
+
+```bash
+cd server && npm i && npm run dev
+```
+
+Start Client
+
+```bash
+cd client && npm i && npm start
+```
