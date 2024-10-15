@@ -34,8 +34,13 @@ export const PatientListPage = () => {
   const { isLoading, data, error } = useListPatientsQuery(filters);
 
   const columns: GridColDef<Patient>[] = [
-    { field: "firstName", headerName: "First Name", flex: 1 },
-    { field: "lastName", headerName: "Last Name", flex: 1 },
+    {
+      field: "firstName",
+      headerName: "First Name",
+      flex: 1,
+      filterable: false,
+    },
+    { field: "lastName", headerName: "Last Name", flex: 1, filterable: false },
     {
       field: "dateOfBirth",
       headerName: "Date of Birth",
@@ -45,6 +50,7 @@ export const PatientListPage = () => {
       renderCell: ({ row }) => {
         return dayjs(row.dateOfBirth).format("LL");
       },
+      filterable: true,
     },
     {
       field: "addresses",
@@ -57,6 +63,7 @@ export const PatientListPage = () => {
 
         return primaryAddress ? primaryAddress.city : "N/A";
       },
+      filterable: false,
     },
     {
       field: "status",
@@ -65,12 +72,14 @@ export const PatientListPage = () => {
       renderCell: ({ row: { status } }) => {
         return <PatientStatusChip status={status} />;
       },
+      filterable: false,
     },
     {
       field: "id",
       headerName: "Action",
       flex: 1,
       sortable: false,
+      filterable: false,
       renderCell: ({ id }) => {
         return (
           <Stack flexDirection="row">
@@ -115,7 +124,6 @@ export const PatientListPage = () => {
         loading={isLoading}
         columns={columns}
         rows={data}
-        disableColumnFilter
         disableColumnSelector
         sx={{
           "& .MuiDataGrid-container--top [role=row]": {
