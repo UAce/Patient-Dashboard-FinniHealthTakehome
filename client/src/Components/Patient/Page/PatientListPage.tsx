@@ -39,8 +39,15 @@ export const PatientListPage = () => {
       headerName: "First Name",
       flex: 1,
       filterable: false,
+      disableColumnMenu: true,
     },
-    { field: "lastName", headerName: "Last Name", flex: 1, filterable: false },
+    {
+      field: "lastName",
+      headerName: "Last Name",
+      flex: 1,
+      filterable: false,
+      disableColumnMenu: true,
+    },
     {
       field: "dateOfBirth",
       headerName: "Date of Birth",
@@ -50,12 +57,13 @@ export const PatientListPage = () => {
       renderCell: ({ row }) => {
         return dayjs(row.dateOfBirth).format("LL");
       },
-      filterable: true,
     },
     {
       field: "addresses",
       headerName: "City",
       flex: 1,
+      filterable: false,
+      disableColumnMenu: true,
       valueGetter: (addresses: Patient["addresses"], row) => {
         const [primaryAddress] = addresses.filter(
           (address) => address.type === AddressType.Primary
@@ -63,23 +71,21 @@ export const PatientListPage = () => {
 
         return primaryAddress ? primaryAddress.city : "N/A";
       },
-      filterable: false,
     },
     {
       field: "status",
       headerName: "Status",
       flex: 1,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: ({ row: { status } }) => {
         return <PatientStatusChip status={status} />;
       },
-      filterable: false,
     },
     {
       field: "id",
       headerName: "Action",
-      flex: 1,
-      sortable: false,
-      filterable: false,
+      type: "actions",
       renderCell: ({ id }) => {
         return (
           <Stack flexDirection="row">
@@ -125,6 +131,7 @@ export const PatientListPage = () => {
         columns={columns}
         rows={data}
         disableColumnSelector
+        disableColumnResize
         sx={{
           "& .MuiDataGrid-container--top [role=row]": {
             backgroundColor: "#ece3de",
